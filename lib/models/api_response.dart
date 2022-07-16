@@ -1,4 +1,4 @@
 class ApiResponse {
-  Object? data;
-  String? error;
+  Object data;
+  String error;
 }

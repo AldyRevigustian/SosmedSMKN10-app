@@ -110,10 +110,10 @@ class _PostScreenState extends State<PostScreen> {
                                     width: 38,
                                     height: 38,
                                     decoration: BoxDecoration(
-                                        image: post.user!.image != null
+                                        image: post.user.image != null
                                             ? DecorationImage(
                                                 image: NetworkImage(
-                                                    '${post.user!.image}'))
+                                                    '${post.user.image}'))
                                             : null,
                                         borderRadius: BorderRadius.circular(25),
                                         color: Colors.amber),
@@ -122,7 +122,7 @@ class _PostScreenState extends State<PostScreen> {
                                     width: 10,
                                   ),
                                   Text(
-                                    '${post.user!.name}',
+                                    '${post.user.name}',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 17),
@@ -130,7 +130,7 @@ class _PostScreenState extends State<PostScreen> {
                                 ],
                               ),
                             ),
-                            post.user!.id == userId
+                            post.user.id == userId
                                 ? PopupMenuButton(
                                     child: Padding(
                                         padding: EdgeInsets.only(right: 10),

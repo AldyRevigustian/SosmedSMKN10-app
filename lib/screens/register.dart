@@ -25,7 +25,7 @@ class _RegisterState extends State<Register> {
       passwordController = TextEditingController(),
       passwordConfirmController = TextEditingController();
 
-  File? _imageFile;
+  File _imageFile;
   final _picker = ImagePicker();
 
   Future getImage() async {
@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
             ),
             TextFormField(
                 controller: nameController,
-                validator: (val) => val!.isEmpty ? 'Invalid name' : null,
+                validator: (val) => val.isEmpty ? 'Invalid name' : null,
                 decoration: kInputDecoration('Name')),
             SizedBox(
               height: 20,
@@ -109,7 +109,7 @@ class _RegisterState extends State<Register> {
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 validator: (val) =>
-                    val!.isEmpty ? 'Invalid email address' : null,
+                    val.isEmpty ? 'Invalid email address' : null,
                 decoration: kInputDecoration('Email')),
             SizedBox(
               height: 20,
@@ -118,7 +118,7 @@ class _RegisterState extends State<Register> {
                 controller: passwordController,
                 obscureText: true,
                 validator: (val) =>
-                    val!.length < 6 ? 'Required at least 6 chars' : null,
+                    val.length < 6 ? 'Required at least 6 chars' : null,
                 decoration: kInputDecoration('Password')),
             SizedBox(
               height: 20,
@@ -138,7 +138,7 @@ class _RegisterState extends State<Register> {
                 : kTextButton(
                     'Register',
                     () {
-                      if (formKey.currentState!.validate()) {
+                      if (formKey.currentState.validate()) {
                         setState(() {
                           loading = !loading;
                           _registerUser();

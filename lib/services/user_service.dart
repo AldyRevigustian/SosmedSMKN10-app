@@ -39,7 +39,7 @@ Future<ApiResponse> login(String email, String password) async {
 
 // Register
 Future<ApiResponse> register(
-    String name, String email, String password, String? image) async {
+    String name, String email, String password, String image) async {
   ApiResponse apiResponse = ApiResponse();
   try {
     final response = await http.post(Uri.parse(registerURL), headers: {
@@ -98,7 +98,7 @@ Future<ApiResponse> getUserDetail() async {
 }
 
 // Update user
-Future<ApiResponse> updateUser(String name, String? image) async {
+Future<ApiResponse> updateUser(String name, String image) async {
   ApiResponse apiResponse = ApiResponse();
   try {
     String token = await getToken();
@@ -151,7 +151,7 @@ Future<bool> logout() async {
 }
 
 // Get base64 encoded image
-String? getStringImage(File? file) {
+String getStringImage(File file) {
   if (file == null) return null;
   return base64Encode(file.readAsBytesSync());
 }

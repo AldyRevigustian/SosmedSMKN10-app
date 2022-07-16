@@ -15,11 +15,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  User? user;
+  User user;
   bool loading = true;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController txtNameController = TextEditingController();
-  File? _imageFile;
+  File _imageFile;
   final _picker = ImagePicker();
 
   Future getImage() async {
@@ -38,7 +38,7 @@ class _ProfileState extends State<Profile> {
       setState(() {
         user = response.data as User;
         loading = false;
-        txtNameController.text = user!.name ?? '';
+        txtNameController.text = user.name ?? '';
       });
     } else if (response.error == unauthorized) {
       logout().then((value) => {
@@ -98,9 +98,10 @@ class _ProfileState extends State<Profile> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(60),
                         image: _imageFile == null
-                            ? user!.image != null
+                            ? user.image != null
                                 ? DecorationImage(
-                                    image: NetworkImage('${user!.image}'),
+                                    image: NetworkImage(
+                                        baseURLmobile + user.image),
                                     fit: BoxFit.cover)
                                 : null
                             : DecorationImage(
@@ -120,14 +121,14 @@ class _ProfileState extends State<Profile> {
                   child: TextFormField(
                     decoration: kInputDecoration('Name'),
                     controller: txtNameController,
-                    validator: (val) => val!.isEmpty ? 'Invalid Name' : null,
+                    validator: (val) => val.isEmpty ? 'Invalid Name' : null,
                   ),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 kTextButton('Update', () {
-                  if (formKey.currentState!.validate()) {
+                  if (formKey.currentState.validate()) {
                     setState(() {
                       loading = true;
                     });

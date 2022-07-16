@@ -22,20 +22,23 @@ class _HomeState extends State<Home> {
         actions: [
           IconButton(
             icon: Icon(Icons.exit_to_app),
-            onPressed: (){
+            onPressed: () {
               logout().then((value) => {
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Login()), (route) => false)
-              });
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => Login()),
+                        (route) => false)
+                  });
             },
           )
         ],
       ),
       body: currentIndex == 0 ? PostScreen() : Profile(),
       floatingActionButton: FloatingActionButton(
-        onPressed: (){
-           Navigator.of(context).push(MaterialPageRoute(builder: (context)=>PostForm(
-             title: 'Add new post',
-           )));
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => PostForm(
+                    title: 'Add new post',
+                  )));
         },
         child: Icon(Icons.add),
       ),
@@ -47,14 +50,8 @@ class _HomeState extends State<Home> {
         shape: CircularNotchedRectangle(),
         child: BottomNavigationBar(
           items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: ''
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: ''
-            )
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: '')
           ],
           currentIndex: currentIndex,
           onTap: (val) {

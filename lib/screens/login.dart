@@ -14,7 +14,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   TextEditingController txtEmail = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
@@ -22,16 +21,14 @@ class _LoginState extends State<Login> {
 
   void _loginUser() async {
     ApiResponse response = await login(txtEmail.text, txtPassword.text);
-    if (response.error == null){
+    if (response.error == null) {
       _saveAndRedirectToHome(response.data as User);
-    }
-    else {
+    } else {
       setState(() {
         loading = false;
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${response.error}')
-      ));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
     }
   }
 
@@ -39,7 +36,8 @@ class _LoginState extends State<Login> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('token', user.token ?? '');
     await pref.setInt('userId', user.id ?? 0);
-    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Home()), (route) => false);
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => Home()), (route) => false);
   }
 
   @override
@@ -55,32 +53,42 @@ class _LoginState extends State<Login> {
           padding: EdgeInsets.all(32),
           children: [
             TextFormField(
-              keyboardType: TextInputType.emailAddress,
-              controller: txtEmail,
-              validator: (val) => val!.isEmpty ? 'Invalid email address' : null,
-              decoration: kInputDecoration('Email')
+                keyboardType: TextInputType.emailAddress,
+                controller: txtEmail,
+                validator: (val) =>
+                    val.isEmpty ? 'Invalid email address' : null,
+                decoration: kInputDecoration('Email')),
+            SizedBox(
+              height: 10,
             ),
-            SizedBox(height: 10,),
             TextFormField(
-              controller: txtPassword,
-              obscureText: true,
-              validator: (val) => val!.length < 6 ? 'Required at least 6 chars' : null,
-              decoration: kInputDecoration('Password')
+                controller: txtPassword,
+                obscureText: true,
+                validator: (val) =>
+                    val.length < 6 ? 'Required at least 6 chars' : null,
+                decoration: kInputDecoration('Password')),
+            SizedBox(
+              height: 10,
             ),
-            SizedBox(height: 10,),
-            loading? Center(child: CircularProgressIndicator(),)
-            :
-            kTextButton('Login', () {
-              if (formkey.currentState!.validate()){
-                  setState(() {
-                    loading = true;
-                    _loginUser();
-                  });
-                }
-            }),
-            SizedBox(height: 10,),
-            kLoginRegisterHint('Dont have an acount? ', 'Register', (){
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>Register()), (route) => false);
+            loading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : kTextButton('Login', () {
+                    if (formkey.currentState.validate()) {
+                      setState(() {
+                        loading = true;
+                        _loginUser();
+                      });
+                    }
+                  }),
+            SizedBox(
+              height: 10,
+            ),
+            kLoginRegisterHint('Dont have an acount? ', 'Register', () {
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(builder: (context) => Register()),
+                  (route) => false);
             })
           ],
         ),

@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 
 // const baseURL = 'http://your-Ip:8000/api';
-const baseURL = 'http://10.0.2.2:8001/api';
+const baseURL = 'http://10.0.2.2:8000/api';
+const baseURLmobile = 'http://10.0.2.2:8000';
+const baseURLlocalhost = 'http://127.0.0.1:8000';
+
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
 const logoutURL = baseURL + '/logout';
