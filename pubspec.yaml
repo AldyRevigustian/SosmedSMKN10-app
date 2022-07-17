@@ -1,0 +1,69 @@
+name: instagram_redesign_ui
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  material_design_icons_flutter: ^5.0.6595
+  photo_manager: ^0.6.0
+  cached_network_image: ^3.2.0
+  flutter_spinkit: ^5.1.0
+  intl: ^0.17.0
+  like_button: ^2.0.4
+  numeral: ^2.0.1
+  shared_preferences: ^2.0.15
+  fluentui_system_icons: ^1.1.174
+  timeago: ^3.2.2
+  image_picker: ^0.7.5+4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Billabong
+      fonts:
+        - asset: fonts/Billabong-Regular.ttf
+
+    - family: Proxima
+      fonts:
+        - asset: fonts/Proxima-Nova-Regular.otf
+        - asset: fonts/Proxima-Nova-Bold.otf
+          weight: 700
+
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: fonts/Montserrat/Montserrat-Light.ttf
+          weight: 300
+        - asset: fonts/Montserrat/Montserrat-Medium.ttf
+          weight: 500
+        - asset: fonts/Montserrat/Montserrat-Regular.ttf
+          weight: 600
+        - asset: fonts/Montserrat/Montserrat-Bold.ttf
+          weight: 700
+        - asset: fonts/Montserrat/Montserrat-ExtraBold.ttf
+          weight: 800
+
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato/Lato-Regular.ttf
+        - asset: fonts/Lato/Lato-Light.ttf
+          weight: 300
+        - asset: fonts/Lato/Lato-Regular.ttf
+          weight: 600
+        - asset: fonts/Lato/Lato-Bold.ttf
+          weight: 700
