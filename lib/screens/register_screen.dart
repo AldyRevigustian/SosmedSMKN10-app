@@ -3,13 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:instagram_redesign_ui/const.dart';
-import 'package:instagram_redesign_ui/models/api_response.dart';
-import 'package:instagram_redesign_ui/models/user.dart';
-import 'package:instagram_redesign_ui/screens/main/home_screen.dart';
-import 'package:instagram_redesign_ui/screens/login_screen.dart';
-import 'package:instagram_redesign_ui/screens/main/navbar.dart';
-import 'package:instagram_redesign_ui/services/user_service.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:smkn10sosmed/const.dart';
+import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/user.dart';
+import 'package:smkn10sosmed/screens/main/home_screen.dart';
+import 'package:smkn10sosmed/screens/login_screen.dart';
+import 'package:smkn10sosmed/screens/main/navbar.dart';
+import 'package:smkn10sosmed/services/user_service.dart';
 import "package:shared_preferences/shared_preferences.dart";
 import 'package:image_picker/image_picker.dart';
 
@@ -21,9 +22,12 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  FocusNode node = new FocusNode();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool loading = false;
   TextEditingController nameController = TextEditingController(),
+      fullnameController = TextEditingController(),
       emailController = TextEditingController(),
       passwordController = TextEditingController(),
       passwordConfirmController = TextEditingController();
@@ -32,7 +36,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _picker = ImagePicker();
 
   Future getImage() async {
-    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    final pickedFile =
+        await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
     if (pickedFile != null) {
       setState(() {
         _imageFile = File(pickedFile.path);
@@ -43,6 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _registerUser() async {
     ApiResponse response = await register(
         nameController.text,
+        fullnameController.text,
         emailController.text,
         passwordController.text,
         getStringImage(_imageFile));
@@ -71,15 +77,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
       systemNavigationBarColor: Colors.white,
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
+    node.addListener(() {
+      if (!node.hasFocus) {
+        formatNickname();
+      }
+    });
     super.initState();
   }
 
   String dropdownValue;
 
+  void formatNickname() {
+    nameController.text = nameController.text.replaceAll(" ", "");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
@@ -129,10 +144,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 60,
                   ),
                   TextFormField(
-                    validator: (val) => val.isEmpty ? 'Invalid name' : null,
-                    controller: nameController,
+                    validator: (value) {
+                      if (value.isEmpty ||
+                          !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                        //allow upper and lower case alphabets and space
+                        return "Enter Correct Full Name";
+                      } else {
+                        return null;
+                      }
+                    },
+                    controller: fullnameController,
                     decoration: InputDecoration(
-                      hintText: "Name",
+                      hintText: "Full Name",
                       prefixIcon: Padding(
                           padding: EdgeInsets.only(right: 10),
                           child: Icon(Icons.person)),
@@ -142,10 +165,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
                   TextFormField(
+                    validator: (value) {
+                      if (value.isEmpty ||
+                          !RegExp(r'^[A-Za-z][A-Za-z0-9_]{7,29}$')
+                              .hasMatch(value)) {
+                        //allow upper and lower case alphabets and space
+                        return "Enter Correct Username";
+                      } else {
+                        return null;
+                      }
+                    },
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      hintText: "Username",
+                      prefixIcon: Padding(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Icon(Icons.alternate_email)),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (val) =>
-                        val.isEmpty ? 'Invalid email address' : null,
+                    validator: (value) {
+                      if (value.isEmpty ||
+                          !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                              .hasMatch(value)) {
+                        //allow upper and lower case alphabets and space
+                        return "Enter Correct Full Name";
+                      } else {
+                        return null;
+                      }
+                    },
                     decoration: InputDecoration(
                       hintText: "Email",
                       prefixIcon: Padding(
@@ -195,7 +248,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       if (formKey.currentState.validate()) {
                         if (_imageFile != null) {
                           setState(() {
-                            loading = !loading;
+                            loading = false;
                           });
                           _registerUser();
                         } else {
@@ -208,13 +261,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     minWidth: double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 15, bottom: 15),
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Lato",
-                        ),
-                      ),
+                      child: loading
+                          ? SpinKitFadingCube(
+                              size: 17,
+                              color: Colors.white.withOpacity(0.5),
+                            )
+                          : Text(
+                              'Register',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Lato",
+                              ),
+                            ),
                     ),
                     color: CustColors.primaryBlue,
                     shape: RoundedRectangleBorder(

@@ -1,9 +1,9 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:instagram_redesign_ui/const.dart';
-import 'package:instagram_redesign_ui/screens/main/home_screen.dart';
-import 'package:instagram_redesign_ui/screens/main/post/post_screen.dart';
-import 'package:instagram_redesign_ui/screens/main/profile.dart';
+import 'package:smkn10sosmed/const.dart';
+import 'package:smkn10sosmed/screens/main/home_screen.dart';
+import 'package:smkn10sosmed/screens/main/post/post_screen.dart';
+import 'package:smkn10sosmed/screens/main/profile.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Navbar extends StatefulWidget {
@@ -32,17 +32,21 @@ class _NavbarState extends State<Navbar> {
         child: curentScreen,
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  offset: Offset(0, -2),
-                  blurRadius: 2)
-            ]),
+        decoration: curent == 1 || curent == 2
+            ? BoxDecoration(
+                color: Colors.white,
+              )
+            : BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+                boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        offset: Offset(0, -2),
+                        blurRadius: 2)
+                  ]),
         child: ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),

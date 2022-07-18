@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:instagram_redesign_ui/constant.dart';
-import 'package:instagram_redesign_ui/screens/login_screen.dart';
-import 'package:instagram_redesign_ui/screens/main/home_screen.dart';
-import 'package:instagram_redesign_ui/screens/main/navbar.dart';
+import 'package:smkn10sosmed/constant.dart';
+import 'package:smkn10sosmed/screens/login_screen.dart';
+import 'package:smkn10sosmed/screens/main/home_screen.dart';
+import 'package:smkn10sosmed/screens/main/navbar.dart';
 
 import 'models/api_response.dart';
 import 'services/user_service.dart';

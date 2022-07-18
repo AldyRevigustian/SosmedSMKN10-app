@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_redesign_ui/const.dart';
-import 'package:instagram_redesign_ui/screens/main/post/add_post.dart';
+import 'package:smkn10sosmed/const.dart';
+import 'package:smkn10sosmed/screens/main/post/add_post.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class PostScreen extends StatefulWidget {
@@ -85,8 +85,6 @@ class _PostScreenState extends State<PostScreen> {
   }
 
   _fetchNewMedia() async {
-    // double width = MediaQuery.of(context).size.width;
-    // double height = MediaQuery.of(context).size.height;
     lastPage = currentPage;
     var result = await PhotoManager.requestPermission();
     if (result) {
@@ -96,13 +94,13 @@ class _PostScreenState extends State<PostScreen> {
           await PhotoManager.getAssetPathList(onlyAll: true);
       print(albums);
       List<AssetEntity> media =
-          await albums[0].getAssetListPaged(currentPage, 10);
+          await albums[0].getAssetListPaged(currentPage, 9);
       print(media);
       List<Widget> temp = [];
       for (var asset in media) {
         if (asset.type == AssetType.image) {
           temp.add(FutureBuilder(
-            future: asset.thumbDataWithSize(400, 400),
+            future: asset.thumbDataWithSize(500, 500, quality: 70),
             builder: (BuildContext context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -263,9 +261,12 @@ class _PostScreenState extends State<PostScreen> {
                 height: height / 2.4,
                 width: width,
                 child: (picked != null)
-                    ? Image.memory(
-                        picked,
-                        fit: BoxFit.contain,
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.memory(
+                          picked,
+                          fit: BoxFit.contain,
+                        ),
                       )
                     : Center(
                         child: Column(
@@ -303,19 +304,39 @@ class _PostScreenState extends State<PostScreen> {
             ),
             Expanded(
               child: Container(
-                decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      offset: Offset(0, -2),
-                      blurRadius: 2)
-                ]),
-                child: GridView.builder(
-                    itemCount: _mediaList.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3),
-                    itemBuilder: (BuildContext context, int index) {
-                      return _mediaList[index];
-                    }),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          offset: Offset(0, -3),
+                          blurRadius: 2)
+                    ]),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(13, 13, 13, 0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    child: GridView.builder(
+                        // padding: EdgeInsets.all(10),
+                        itemCount: _mediaList.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisSpacing: 5,
+                            crossAxisSpacing: 5,
+                            crossAxisCount: 3),
+                        itemBuilder: (BuildContext context, int index) {
+                          return ClipRRect(
+                              borderRadius: BorderRadius.circular(5),
+                              child: _mediaList[index]);
+                        }),
+                  ),
+                ),
               ),
             ),
           ],

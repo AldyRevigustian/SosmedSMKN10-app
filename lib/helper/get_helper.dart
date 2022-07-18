@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:instagram_redesign_ui/models/feed_model.dart';
+import 'package:smkn10sosmed/models/feed_model.dart';
 
 class GetHelper {
   Future<List<Feed>> getAllFeed() async {

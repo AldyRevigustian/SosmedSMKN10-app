@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_redesign_ui/const.dart';
+import 'package:smkn10sosmed/const.dart';
 
 class TextFieldInput extends StatelessWidget {
   final TextEditingController textEditingController;

@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:instagram_redesign_ui/models/api_response.dart';
-import 'package:instagram_redesign_ui/models/post.dart';
-import 'package:instagram_redesign_ui/models/post_single.dart';
-import 'package:instagram_redesign_ui/services/user_service.dart';
+import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/post.dart';
+import 'package:smkn10sosmed/models/post_single.dart';
+import 'package:smkn10sosmed/services/user_service.dart';
 
 import '../constant.dart';
 

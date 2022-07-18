@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:instagram_redesign_ui/models/api_response.dart';
-import 'package:instagram_redesign_ui/models/comment.dart';
+import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/comment.dart';
 
 import '../constant.dart';
 import 'user_service.dart';

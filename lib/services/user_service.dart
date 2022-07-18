@@ -3,8 +3,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
-import 'package:instagram_redesign_ui/models/api_response.dart';
-import 'package:instagram_redesign_ui/models/user.dart';
+import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/user.dart';
 import "package:shared_preferences/shared_preferences.dart";
 
 import '../constant.dart';
@@ -40,14 +40,15 @@ Future<ApiResponse> login(String email, String password) async {
 }
 
 // Register
-Future<ApiResponse> register(
-    String name, String email, String password, String image) async {
+Future<ApiResponse> register(String name, String fullname, String email,
+    String password, String image) async {
   ApiResponse apiResponse = ApiResponse();
   try {
     final response = await http.post(Uri.parse(registerURL), headers: {
       'Accept': 'application/json'
     }, body: {
       'name': name,
+      'fullname': fullname,
       'email': email,
       'password': password,
       'password_confirmation': password,

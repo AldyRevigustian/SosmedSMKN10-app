@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:instagram_redesign_ui/const.dart';
-import 'package:instagram_redesign_ui/loading.dart';
-import 'package:instagram_redesign_ui/screens/login_screen.dart';
+import 'package:smkn10sosmed/const.dart';
+import 'package:smkn10sosmed/loading.dart';
+import 'package:smkn10sosmed/screens/login_screen.dart';
 
 void main() => runApp(MyApp());
 

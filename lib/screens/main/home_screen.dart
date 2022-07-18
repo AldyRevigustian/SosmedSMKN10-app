@@ -5,16 +5,18 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:instagram_redesign_ui/constant.dart';
-import 'package:instagram_redesign_ui/helper/get_helper.dart';
-import 'package:instagram_redesign_ui/models/api_response.dart';
-import 'package:instagram_redesign_ui/models/post.dart';
-import 'package:instagram_redesign_ui/screens/login_screen.dart';
-import 'package:instagram_redesign_ui/screens/main/comment.dart';
-import 'package:instagram_redesign_ui/services/post_service.dart';
-import 'package:instagram_redesign_ui/services/user_service.dart';
-import 'package:instagram_redesign_ui/widget/build_post.dart';
-import 'package:instagram_redesign_ui/widget/readmore.dart';
+import 'package:smkn10sosmed/constant.dart';
+import 'package:smkn10sosmed/helper/get_helper.dart';
+import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/post.dart';
+import 'package:smkn10sosmed/models/user.dart';
+import 'package:smkn10sosmed/screens/login_screen.dart';
+import 'package:smkn10sosmed/screens/main/comment.dart';
+import 'package:smkn10sosmed/screens/main/profile.dart';
+import 'package:smkn10sosmed/services/post_service.dart';
+import 'package:smkn10sosmed/services/user_service.dart';
+import 'package:smkn10sosmed/widget/build_post.dart';
+import 'package:smkn10sosmed/widget/readmore.dart';
 import 'package:like_button/like_button.dart';
 import 'package:numeral/fun.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -27,6 +29,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   // final fifteenAgo = DateTime.now().subtract(Duration(minutes: 15));
+  User user;
 
   Future listPost;
   List<dynamic> _postList = [];
@@ -82,6 +85,25 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void getUser() async {
+    ApiResponse response = await getUserDetail();
+    if (response.error == null) {
+      setState(() {
+        user = response.data as User;
+        _loading = _loading ? !_loading : _loading;
+      });
+    } else if (response.error == unauthorized) {
+      logout().then((value) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (route) => false)
+          });
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('${response.error}')));
+    }
+  }
+
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -90,6 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ));
     // listPost = GetHelper().getAllFeed();
     retrievePosts();
+    getUser();
 
     super.initState();
   }
@@ -101,79 +124,67 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(top: 5),
-                    child: Text(
-                      'SMKN 10',
-                      style: TextStyle(
-                        fontFamily: 'Billabong',
-                        fontSize: 25.0,
+        child: _loading
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SpinKitFadingCube(
+                      size: 30,
+                      color: Colors.black.withOpacity(0.2),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text(
+                        "Please wait ...",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.2), fontSize: 15),
                       ),
+                    )
+                  ],
+                ),
+              )
+            : Column(
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(top: 5),
+                          child: Text(
+                            'SMKN 10',
+                            style: TextStyle(
+                              fontFamily: 'Billabong',
+                              fontSize: 25.0,
+                            ),
+                          ),
+                        ),
+                        CircleAvatar(
+                          // radius: 70,
+                          child: ClipOval(
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              width: 160,
+                              height: 160,
+                              imageUrl: baseURLMobile + user.image,
+                              placeholder: (context, url) => Center(
+                                child: Image.asset('assets/images/user0.png'),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Container(
-                    width: 170,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100)),
+                  Expanded(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(20, 2, 2, 2),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.search,
-                            color: Colors.black.withOpacity(0.5),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Cari Teman",
-                            style: TextStyle(
-                              color: Colors.black.withOpacity(0.5),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    // color: Colors.white,
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 0),
-                child: _loading
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SpinKitFadingCube(
-                              size: 30,
-                              color: Colors.black.withOpacity(0.2),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Text(
-                                "Please wait ...",
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.2),
-                                    fontSize: 15),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    : RefreshIndicator(
+                      padding: const EdgeInsets.only(top: 0),
+                      child: RefreshIndicator(
                         color: Colors.black,
                         displacement: 10,
                         // edgeOffset: 10,
@@ -285,11 +296,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                         .asset(
                                                                             'assets/images/user0.png'),
                                                                   ),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      Icon(Icons
-                                                                          .error),
+                                                                  errorWidget:
+                                                                      (context,
+                                                                              url,
+                                                                              error) =>
+                                                                          Icon(
+                                                                    Icons.error,
+                                                                    color: Colors
+                                                                        .white
+                                                                        .withOpacity(
+                                                                            0.8),
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -313,13 +330,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         ),
                                                         InkWell(
                                                           // onDoubleTap: () {
-                                                          //   setState(() {
-                                                          //     post.selfLiked = true;
-                                                          //   });
+                                                          //   // setState(() {
+                                                          //   //   post.selfLiked = true;
+                                                          //   // });
                                                           //   _handlePostLikeDislike(
                                                           //       post.id);
                                                           // },
-                                                          onTap: () {},
+                                                          // onTap: () {
+                                                          //   _handlePostLikeDislike(
+                                                          //       post.id);
+                                                          // },
                                                           child: Padding(
                                                               padding:
                                                                   const EdgeInsets
@@ -378,8 +398,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       errorWidget: (context,
                                                                               url,
                                                                               error) =>
-                                                                          Icon(Icons
-                                                                              .error),
+                                                                          Icon(
+                                                                        Icons
+                                                                            .error,
+                                                                        color: Colors
+                                                                            .white
+                                                                            .withOpacity(0.8),
+                                                                      ),
                                                                     ),
                                                                     borderRadius:
                                                                         BorderRadius.circular(
@@ -567,8 +592,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             errorWidget:
                                                                 (context, url,
                                                                         error) =>
-                                                                    Icon(Icons
-                                                                        .error),
+                                                                    Icon(
+                                                              Icons.error,
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                      0.8),
+                                                            ),
                                                           ),
                                                         ),
                                                       ),
@@ -648,11 +678,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       .withOpacity(
                                                                           0.8),
                                                                 ),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
-                                                                    Icon(Icons
-                                                                        .error),
+                                                                errorWidget:
+                                                                    (context,
+                                                                            url,
+                                                                            error) =>
+                                                                        Icon(
+                                                                  Icons.error,
+                                                                  color: Colors
+                                                                      .white
+                                                                      .withOpacity(
+                                                                          0.8),
+                                                                ),
                                                               ),
                                                               borderRadius:
                                                                   BorderRadius
@@ -793,10 +829,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                       }),
                         ),
                       ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

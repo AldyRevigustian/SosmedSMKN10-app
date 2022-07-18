@@ -1,12 +1,12 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:instagram_redesign_ui/constant.dart';
-import 'package:instagram_redesign_ui/models/api_response.dart';
-import 'package:instagram_redesign_ui/models/comment.dart';
-import 'package:instagram_redesign_ui/screens/login_screen.dart';
-import 'package:instagram_redesign_ui/services/comment_service.dart';
-import 'package:instagram_redesign_ui/services/user_service.dart';
+import 'package:smkn10sosmed/constant.dart';
+import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/comment.dart';
+import 'package:smkn10sosmed/screens/login_screen.dart';
+import 'package:smkn10sosmed/services/comment_service.dart';
+import 'package:smkn10sosmed/services/user_service.dart';
 
 class CommentScreen extends StatefulWidget {
   final int postId;
@@ -183,7 +183,9 @@ class _CommentScreenState extends State<CommentScreen> {
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
-                                            color: Colors.black26, width: 1))),
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            width: 1))),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
