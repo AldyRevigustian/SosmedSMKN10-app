@@ -7,7 +7,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smkn10sosmed/const.dart';
 import 'package:smkn10sosmed/constant.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
-import 'package:smkn10sosmed/models/feed_model.dart';
 import 'package:smkn10sosmed/models/post.dart';
 import 'package:smkn10sosmed/screens/login_screen.dart';
 import 'package:smkn10sosmed/screens/main/comment.dart';

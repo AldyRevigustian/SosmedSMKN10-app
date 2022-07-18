@@ -2,7 +2,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:smkn10sosmed/const.dart';
 import 'package:smkn10sosmed/screens/main/home_screen.dart';
-import 'package:smkn10sosmed/screens/main/post/post_screen.dart';
+import 'package:smkn10sosmed/screens/main/post_screen.dart';
 import 'package:smkn10sosmed/screens/main/profile.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 

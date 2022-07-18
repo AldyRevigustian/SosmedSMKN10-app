@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smkn10sosmed/const.dart';
 import 'package:smkn10sosmed/constant.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
@@ -184,13 +185,18 @@ class _EditProfileState extends State<EditProfile> {
                   minWidth: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 15, bottom: 15),
-                    child: Text(
-                      'Update',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: "Lato",
-                      ),
-                    ),
+                    child: loading
+                        ? SpinKitFadingCube(
+                            size: 17,
+                            color: Colors.white.withOpacity(0.5),
+                          )
+                        : Text(
+                            'Update',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: "Lato",
+                            ),
+                          ),
                   ),
                   color: CustColors.primaryBlue,
                   shape: RoundedRectangleBorder(

@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smkn10sosmed/const.dart';
-import 'package:smkn10sosmed/screens/main/post/add_post.dart';
+import 'package:smkn10sosmed/screens/main/add_post.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class PostScreen extends StatefulWidget {

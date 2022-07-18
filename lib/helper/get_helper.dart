@@ -1,24 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:smkn10sosmed/models/feed_model.dart';
 
 class GetHelper {
-  Future<List<Feed>> getAllFeed() async {
-    final response = await http.get(
-        Uri.parse("https://6268a04eaa65b5d23e77f552.mockapi.io/instagram"));
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      log("Masok");
-      return jsonResponse.map((job) => new Feed.fromJson(job)).toList();
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      // return ;
-      throw Exception('Failed to load Feed');
-    }
-  }
-
   Future postFeed(String authorName, String authorImageUrl, String imageUrl,
       String type, String caption) async {
     var authorName = "Aldy";
