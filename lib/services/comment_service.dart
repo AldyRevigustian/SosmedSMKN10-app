@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/comment.dart';
 
-import '../constant.dart';
+import '../widget/constant.dart';
 import 'user_service.dart';
 
 // Get post comments

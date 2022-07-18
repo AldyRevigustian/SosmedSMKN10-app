@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smkn10sosmed/const.dart';
+import 'package:smkn10sosmed/widget/constant.dart';
 
 class TextFieldInput extends StatelessWidget {
   final TextEditingController textEditingController;

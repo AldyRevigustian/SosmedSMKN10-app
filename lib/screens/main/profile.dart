@@ -7,8 +7,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smkn10sosmed/const.dart';
-import 'package:smkn10sosmed/loading.dart';
+import 'package:smkn10sosmed/screens/loading.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/post.dart';
 import 'package:smkn10sosmed/models/post_single.dart';
@@ -19,7 +18,7 @@ import 'package:smkn10sosmed/screens/main/view_post_screen.dart';
 import 'package:smkn10sosmed/services/post_service.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
 
-import '../../constant.dart';
+import '../../widget/constant.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smkn10sosmed/const.dart';
-import 'package:smkn10sosmed/loading.dart';
+import 'package:smkn10sosmed/widget/constant.dart';
+import 'package:smkn10sosmed/screens/loading.dart';
 import 'package:smkn10sosmed/screens/login_screen.dart';
 
 void main() => runApp(MyApp());

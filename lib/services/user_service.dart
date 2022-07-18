@@ -7,7 +7,7 @@ import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/user.dart';
 import "package:shared_preferences/shared_preferences.dart";
 
-import '../constant.dart';
+import '../widget/constant.dart';
 
 // login
 Future<ApiResponse> login(String email, String password) async {

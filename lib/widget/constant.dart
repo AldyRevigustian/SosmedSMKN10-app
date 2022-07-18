@@ -20,6 +20,11 @@ const serverError = 'Server error';
 const unauthorized = 'Unauthorized';
 const somethingWentWrong = 'Something went wrong, try again!';
 
+class CustColors {
+  static const Color primaryWhite = Color(0xFFf4f6f9);
+  static const Color primaryBlue = Color.fromRGBO(0, 149, 246, 1);
+}
+
 // --- input decoration
 InputDecoration kInputDecoration(String label) {
   return InputDecoration(

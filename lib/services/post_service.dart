@@ -7,7 +7,7 @@ import 'package:smkn10sosmed/models/post.dart';
 import 'package:smkn10sosmed/models/post_single.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
 
-import '../constant.dart';
+import '../widget/constant.dart';
 
 // get all posts
 Future<ApiResponse> getPosts() async {

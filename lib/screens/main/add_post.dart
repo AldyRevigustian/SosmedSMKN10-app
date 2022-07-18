@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:smkn10sosmed/constant.dart';
+import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/helper/get_helper.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/screens/login_screen.dart';
@@ -11,8 +11,6 @@ import 'package:smkn10sosmed/screens/main/navbar.dart';
 import 'package:smkn10sosmed/services/post_service.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
 import 'package:photo_manager/photo_manager.dart';
-
-import '../../../const.dart';
 
 class AddPost extends StatefulWidget {
   const AddPost({Key key, this.image}) : super(key: key);
