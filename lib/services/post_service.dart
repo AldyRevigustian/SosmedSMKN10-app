@@ -76,12 +76,11 @@ Future<ApiResponse> getPostsPerId(String id) async {
   ApiResponse apiResponse = ApiResponse();
   try {
     String token = await getToken();
-    final response = await http.get(
-        Uri.parse("http://192.168.0.11:8000/api/post/" + id.toString()),
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer $token'
-        });
+    final response = await http
+        .get(Uri.parse(baseURL + "/post/" + id.toString()), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    });
 
     switch (response.statusCode) {
       case 200:

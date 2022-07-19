@@ -5,7 +5,9 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/screens/main/add_post.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -94,7 +96,9 @@ class _PostScreenState extends State<PostScreen> {
           await PhotoManager.getAssetPathList(onlyAll: true);
       print(albums);
       List<AssetEntity> media =
-          await albums[0].getAssetListPaged(currentPage, 9);
+          await albums[0].getAssetListPaged(currentPage, 15);
+      // List<AssetEntity> media =
+      //     await albums[0].getAssetListPaged(currentPage, 15);
       print(media);
       List<Widget> temp = [];
       for (var asset in media) {
@@ -226,14 +230,43 @@ class _PostScreenState extends State<PostScreen> {
           actions: [
             InkWell(
               // borderRadius: BorderRadius.circular(80),
-              onTap: () {
+              onTap: () async {
                 if (picked != null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => AddPost(image: picked),
-                    ),
-                  );
+                  final tempDir = await getTemporaryDirectory();
+                  File decodedimgfile = await File("${tempDir.path}/image.png")
+                      .writeAsBytes(picked);
+                  File croppedFile = await ImageCropper().cropImage(
+                      sourcePath: decodedimgfile.path,
+                      // compressQuality: 80,
+                      aspectRatioPresets: [
+                        CropAspectRatioPreset.square,
+                        // CropAspectRatioPreset.ratio3x2,
+                        CropAspectRatioPreset.original,
+                        // CropAspectRatioPreset.ratio4x3,
+                        CropAspectRatioPreset.ratio16x9,
+                      ],
+                      androidUiSettings: AndroidUiSettings(
+                        // hideBottomControls: true,
+                        lockAspectRatio: false,
+                        toolbarTitle: 'Crop Image',
+                        toolbarColor: Colors.white,
+                        toolbarWidgetColor: Colors.black,
+                        initAspectRatio: CropAspectRatioPreset.original,
+                        backgroundColor: CustColors.primaryWhite,
+                        activeControlsWidgetColor: CustColors.primaryBlue,
+                      ),
+                      iosUiSettings: IOSUiSettings(
+                        minimumAspectRatio: 1.0,
+                      ));
+                  if (croppedFile != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            AddPost(image: croppedFile.readAsBytesSync()),
+                      ),
+                    );
+                  }
                 }
               },
               child: Padding(

@@ -206,119 +206,113 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Container(
                         height: height / 2.8,
                         // color: Colors.red,
-                        child: Stack(
-                          children: [
-                            Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  // SizedBox(
-                                  //   height: 30,
-                                  // ),
-                                  CircleAvatar(
-                                    radius: 70,
-                                    child: Stack(
-                                      children: [
-                                        ClipOval(
-                                          child: CachedNetworkImage(
-                                            fit: BoxFit.cover,
-                                            width: 160,
-                                            height: 160,
-                                            imageUrl:
-                                                baseURLMobile + user.image,
-                                            placeholder: (context, url) =>
-                                                Center(
-                                              child: Image.asset(
-                                                  'assets/images/user0.png'),
-                                            ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Icon(Icons.error),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              // SizedBox(
+                              //   height: 30,
+                              // ),
+                              CircleAvatar(
+                                radius: 70,
+                                child: Stack(
+                                  children: [
+                                    ClipOval(
+                                      child: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        width: 160,
+                                        height: 160,
+                                        imageUrl: baseURLMobile + user.image,
+                                        placeholder: (context, url) => Center(
+                                          child: Image.asset(
+                                              'assets/images/user0.png'),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                    ),
+                                    Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      EditProfile(
+                                                          // func: refresh,
+                                                          ))).then((value) {
+                                            setState(() {
+                                              refresh();
+                                            });
+                                          });
+                                          // Navigator.pop(context);
+                                        },
+                                        child: CircleAvatar(
+                                          radius: 18,
+                                          backgroundColor: CustColors
+                                              .primaryBlue
+                                              .withOpacity(1),
+                                          child: Icon(
+                                            Icons.edit,
+                                            size: 18,
+                                            color: Colors.white,
                                           ),
                                         ),
-                                        Align(
-                                          alignment: Alignment.bottomRight,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          EditProfile(
-                                                              // func: refresh,
-                                                              ))).then((value) {
-                                                setState(() {
-                                                  refresh();
-                                                });
-                                              });
-                                              // Navigator.pop(context);
-                                            },
-                                            child: CircleAvatar(
-                                              radius: 18,
-                                              backgroundColor: Colors.white,
-                                              child: Icon(
-                                                Icons.edit,
-                                                color: Colors.black,
-                                                size: 19,
-                                              ),
-                                            ),
-                                          ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                    minWidth: 160,
+                                    // minHeight: 20,
+                                    maxWidth: 300),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(100)),
+
+                                  // width: width / 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        30, 10, 30, 10),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          user.fullname,
+                                          // "koaskdosakdoas okasodksaod okoaskdoaskd kasodkasodk",
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color:
+                                                  Colors.black.withOpacity(1)),
+                                        ),
+                                        Text(
+                                          "@" + user.name,
+                                          // "koaskdosakdoas okasodksaod okoaskdoaskd kasodkasodk",
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              // fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: Colors.black
+                                                  .withOpacity(0.8)),
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                        minWidth: 160,
-                                        // minHeight: 20,
-                                        maxWidth: 300),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(100)),
-
-                                      // width: width / 1,
-                                      child: Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            30, 10, 30, 10),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              user.fullname,
-                                              // "koaskdosakdoas okasodksaod okoaskdoaskd kasodkasodk",
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                  color: Colors.black
-                                                      .withOpacity(1)),
-                                            ),
-                                            Text(
-                                              "@" + user.name,
-                                              // "koaskdosakdoas okasodksaod okoaskdoaskd kasodkasodk",
-                                              overflow: TextOverflow.ellipsis,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  // fontWeight: FontWeight.bold,
-                                                  fontSize: 15,
-                                                  color: Colors.black
-                                                      .withOpacity(0.8)),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                       // SizedBox(
@@ -334,7 +328,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
+                                  color: Colors.black.withOpacity(0.1),
                                   offset: Offset(0, -2),
                                   blurRadius: 2)
                             ]),

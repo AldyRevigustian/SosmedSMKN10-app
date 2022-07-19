@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         CircleAvatar(
-                          // radius: 70,
+                          radius: 15,
                           child: ClipOval(
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,

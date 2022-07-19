@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/user.dart';
@@ -13,6 +14,7 @@ import 'package:smkn10sosmed/screens/main/navbar.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
 import "package:shared_preferences/shared_preferences.dart";
 import 'package:image_picker/image_picker.dart';
+import 'package:username_validator/username_validator.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key key}) : super(key: key);
@@ -24,13 +26,16 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   FocusNode node = new FocusNode();
 
+  bool _isObscure = true;
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool loading = false;
   TextEditingController nameController = TextEditingController(),
       fullnameController = TextEditingController(),
       emailController = TextEditingController(),
-      passwordController = TextEditingController(),
-      passwordConfirmController = TextEditingController();
+      passwordController = TextEditingController();
+
+  // passwordConfirmController = TextEditingController();
 
   File _imageFile;
   final _picker = ImagePicker();
@@ -39,9 +44,36 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final pickedFile =
         await _picker.getImage(source: ImageSource.gallery, imageQuality: 50);
     if (pickedFile != null) {
-      setState(() {
-        _imageFile = File(pickedFile.path);
-      });
+      // setState(() {
+      //   _imageFile = File(pickedFile.path);
+      // });
+      File croppedFile = await ImageCropper().cropImage(
+          sourcePath: pickedFile.path,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          // compressQuality: 80,
+          // aspectRatioPresets: [
+          //   CropAspectRatioPreset.square,
+          // ],
+          // cropStyle: CropStyle.rectangle,
+          androidUiSettings: AndroidUiSettings(
+            // hideBottomControls: true,
+            // lockAspectRatio: false,
+            toolbarTitle: 'Crop Image',
+            toolbarColor: Colors.white,
+            toolbarWidgetColor: Colors.black,
+            initAspectRatio: CropAspectRatioPreset.square,
+            backgroundColor: CustColors.primaryWhite,
+            activeControlsWidgetColor: CustColors.primaryBlue,
+          ),
+          iosUiSettings: IOSUiSettings(
+            minimumAspectRatio: 1.0,
+          ));
+
+      if (croppedFile != null) {
+        setState(() {
+          _imageFile = croppedFile;
+        });
+      }
     }
   }
 
@@ -166,9 +198,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFormField(
                     validator: (value) {
-                      if (value.isEmpty ||
-                          !RegExp(r'^[A-Za-z][A-Za-z0-9_]{7,29}$')
-                              .hasMatch(value)) {
+                      bool basic = UValidator.validateThis(username: value);
+                      if (value.isEmpty || !basic) {
                         //allow upper and lower case alphabets and space
                         return "Enter Correct Username";
                       } else {
@@ -194,7 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
                               .hasMatch(value)) {
                         //allow upper and lower case alphabets and space
-                        return "Enter Correct Full Name";
+                        return "Enter Correct Email";
                       } else {
                         return null;
                       }
@@ -211,32 +242,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   TextFormField(
                     controller: passwordController,
-                    obscureText: true,
                     validator: (val) =>
                         val.length < 6 ? 'Required at least 6 chars' : null,
+                    obscureText: _isObscure,
                     decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: _isObscure
+                            ? Icon(
+                                Icons.visibility,
+                                color: Colors.black54,
+                              )
+                            : Icon(
+                                Icons.visibility_off,
+                                color: Colors.black54,
+                              ),
+                        onPressed: () {
+                          setState(() {
+                            _isObscure = !_isObscure;
+                          });
+                        },
+                      ),
                       hintText: "Password",
                       prefixIcon: Padding(
                           padding: EdgeInsets.only(right: 10),
                           child: Icon(Icons.vpn_key_sharp)),
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextFormField(
-                    controller: passwordConfirmController,
-                    obscureText: true,
-                    validator: (val) => val != passwordController.text
-                        ? 'Confirm password does not match'
-                        : null,
-                    decoration: InputDecoration(
-                      hintText: "Confirm Password",
-                      prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.vpn_key_sharp)),
-                    ),
-                  ),
+
                   // SizedBox(
                   //   height: 20,
                   // ),

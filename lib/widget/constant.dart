@@ -4,10 +4,22 @@ import 'package:intl/intl.dart' as intl;
 import 'package:numeral/fun.dart';
 
 // const baseURL = 'http://your-Ip:8000/api';
-const baseURL = 'http://192.168.0.11:8000/api';
-const baseURLMobile = 'http://192.168.0.11:8000';
+
+// Sekolah
+// const baseURL = 'http://192.168.0.112:8000/api';
+// // const baseURLMobile = 'http://192.168.0.112:8000';
+
+// Rumah
+// const baseURL = 'http://192.168.0.11:8000/api';
+// const baseURLMobile = 'http://192.168.0.11:8000';
+
+// Rumah
+const baseURL = 'http://192.168.0.191:8000/api';
+const baseURLMobile = 'http://192.168.0.191:8000';
+
 // const baseURL = 'http://10.0.2.2:8000/api';
 // const baseURLMobile = 'http://10.0.2.2:8000';
+
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
 const logoutURL = baseURL + '/logout';
