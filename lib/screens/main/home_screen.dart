@@ -477,16 +477,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 0,
                                                                             top:
                                                                                 5),
-                                                                        child: kComment(
-                                                                            FluentIcons
-                                                                                .chat_20_regular,
-                                                                            Colors.black87,
-                                                                            () {
-                                                                          Navigator.of(context).push(MaterialPageRoute(
-                                                                              builder: (context) => CommentScreen(
-                                                                                    postId: post.id,
-                                                                                  )));
-                                                                        }),
+                                                                        child:
+                                                                            kComment(
+                                                                          FluentIcons
+                                                                              .chat_20_regular,
+                                                                          Colors
+                                                                              .black87,
+                                                                          () {
+                                                                            Navigator.of(context).push(MaterialPageRoute(
+                                                                                builder: (context) => CommentScreen(
+                                                                                      postId: post.id,
+                                                                                    )));
+                                                                          },
+                                                                          post.commentsCount ??
+                                                                              0,
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -775,19 +780,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           .only(
                                                                       left: 0,
                                                                       top: 5),
-                                                                  child: kComment(
-                                                                      FluentIcons
-                                                                          .chat_20_regular,
-                                                                      Colors
-                                                                          .black87,
-                                                                      () {
-                                                                    Navigator.of(
-                                                                            context)
-                                                                        .push(MaterialPageRoute(
-                                                                            builder: (context) => CommentScreen(
-                                                                                  postId: post.id,
-                                                                                )));
-                                                                  }),
+                                                                  child:
+                                                                      kComment(
+                                                                    FluentIcons
+                                                                        .chat_20_regular,
+                                                                    Colors
+                                                                        .black87,
+                                                                    () {
+                                                                      Navigator.of(context).push(MaterialPageRoute(
+                                                                          builder: (context) => CommentScreen(
+                                                                                postId: post.id,
+                                                                              )));
+                                                                    },
+                                                                    post.commentsCount ??
+                                                                        0,
+                                                                  ),
                                                                 ),
                                                               ],
                                                             ),

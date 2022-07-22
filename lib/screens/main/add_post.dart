@@ -65,14 +65,28 @@ class _AddPostState extends State<AddPost> {
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  offset: Offset(0, -2),
+                  blurRadius: 2)
+            ]),
         child: ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(20.0),
               topRight: Radius.circular(20.0),
             ),
             child: BottomAppBar(
-              // color: Colors.red,
               child: Container(
+                // decoration: BoxDecoration(
+                //   color: Colors.white,
+                // ),
                 height: 80,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -82,9 +96,6 @@ class _AddPostState extends State<AddPost> {
                         highlightColor: Colors.transparent,
                         minWidth: 40,
                         onPressed: () {
-                          // Navigator.of(context).pushAndRemoveUntil(
-                          //     MaterialPageRoute(builder: (context) => Navbar()),
-                          //     (route) => false);
                           // setState(() {
                           //   curentScreen = HomeScreen();
                           //   curent = 0;
@@ -119,12 +130,7 @@ class _AddPostState extends State<AddPost> {
                         ),
                         // color: Color(0xFF23B66F),
                         color: CustColors.primaryBlue.withOpacity(0.9),
-                        onPressed: () {
-                          // setState(() {
-                          //   curentScreen = PostScreen();
-                          //   curent = 1;
-                          // });
-                        },
+                        onPressed: () {},
                         // onPressed: () => print('Upload Photo'),
                         child: Icon(
                           Icons.add_box_rounded,
@@ -137,13 +143,7 @@ class _AddPostState extends State<AddPost> {
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onPressed: () {
-                          // Navigator.of(context).pushAndRemoveUntil(
-                          //     MaterialPageRoute(builder: (context) => Navbar()),
-                          //     (route) => false);
-                          // setState(() {
-                          //   curentScreen = ProfileScreen();
-                          //   curent = 2;
-                          // });
+                          setState(() {});
                         },
                         minWidth: 40,
                         child: Column(

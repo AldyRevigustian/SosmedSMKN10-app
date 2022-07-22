@@ -362,15 +362,19 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                                 padding: const EdgeInsets.only(
                                                     left: 0, top: 5),
                                                 child: kComment(
-                                                    FluentIcons.chat_20_regular,
-                                                    Colors.black87, () {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              CommentScreen(
-                                                                postId: post.id,
-                                                              )));
-                                                }),
+                                                  FluentIcons.chat_20_regular,
+                                                  Colors.black87,
+                                                  () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                CommentScreen(
+                                                                  postId:
+                                                                      post.id,
+                                                                )));
+                                                  },
+                                                  post.commentsCount ?? 0,
+                                                ),
                                               ),
                                             ],
                                           ),

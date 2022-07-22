@@ -6,16 +6,16 @@ import 'package:numeral/fun.dart';
 // const baseURL = 'http://your-Ip:8000/api';
 
 // Sekolah
-// const baseURL = 'http://192.168.0.112:8000/api';
-// const baseURLMobile = 'http://192.168.0.112:8000';
+const baseURL = 'http://192.168.0.105:8000/api';
+const baseURLMobile = 'http://192.168.0.105:8000';
 
 // Rumah
 // const baseURL = 'http://192.168.0.11:8000/api';
 // const baseURLMobile = 'http://192.168.0.11:8000';
 
 // Rumah
-const baseURL = 'http://192.168.0.191:8000/api';
-const baseURLMobile = 'http://192.168.0.191:8000';
+// const baseURL = 'http://192.168.0.191:8000/api';
+// const baseURLMobile = 'http://192.168.0.191:8000';
 
 // const baseURL = 'http://10.0.2.2:8000/api';
 // const baseURLMobile = 'http://10.0.2.2:8000';
@@ -118,7 +118,7 @@ kLikeAndComment(IconData icon, Color color, Function onTap) {
   );
 }
 
-kComment(IconData icon, Color color, Function onTap) {
+kComment(IconData icon, Color color, Function onTap, value) {
   return ConstrainedBox(
     constraints: new BoxConstraints(
       minWidth: 60.0,
@@ -140,10 +140,12 @@ kComment(IconData icon, Color color, Function onTap) {
                 size: 30,
                 color: color,
               ),
-
+              SizedBox(
+                width: 8,
+              ),
               // Text(
               //   '$value',
-              //   style: TextStyle(fontWeight: FontWeight.w600),
+              //   style: TextStyle(fontWeight: FontWeight.w600, fontSize: ),
               // )
             ],
           ),

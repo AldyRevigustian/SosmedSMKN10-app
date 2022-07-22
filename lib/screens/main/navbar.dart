@@ -25,8 +25,8 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor:
-      //     curent == 2 || curent == 3 ? Colors.white : CustColors.primaryWhite,
+      backgroundColor:
+          curent == 1 || curent == 2 ? Colors.white : CustColors.primaryWhite,
       body: PageStorage(
         bucket: bucket,
         child: curentScreen,
@@ -35,15 +35,25 @@ class _NavbarState extends State<Navbar> {
         decoration: curent == 1 || curent == 2
             ? BoxDecoration(
                 color: Colors.white,
-              )
-            : BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20.0),
                   topRight: Radius.circular(20.0),
                 ),
                 boxShadow: [
                     BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withOpacity(0.08),
+                        offset: Offset(0, -2),
+                        blurRadius: 2)
+                  ])
+            : BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+                boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
                         offset: Offset(0, -2),
                         blurRadius: 2)
                   ]),
