@@ -50,6 +50,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       File croppedFile = await ImageCropper().cropImage(
           sourcePath: pickedFile.path,
           aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          maxHeight: 300,
+          maxWidth: 300,
+          // compressQuality: 80,
           // compressQuality: 80,
           // aspectRatioPresets: [
           //   CropAspectRatioPreset.square,

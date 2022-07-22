@@ -7,7 +7,7 @@ import 'package:numeral/fun.dart';
 
 // Sekolah
 // const baseURL = 'http://192.168.0.112:8000/api';
-// // const baseURLMobile = 'http://192.168.0.112:8000';
+// const baseURLMobile = 'http://192.168.0.112:8000';
 
 // Rumah
 // const baseURL = 'http://192.168.0.11:8000/api';

@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/screens/main/add_post.dart';
 import 'package:photo_manager/photo_manager.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class PostScreen extends StatefulWidget {
   @override
@@ -237,7 +238,9 @@ class _PostScreenState extends State<PostScreen> {
                       .writeAsBytes(picked);
                   File croppedFile = await ImageCropper().cropImage(
                       sourcePath: decodedimgfile.path,
-                      // compressQuality: 80,
+                      maxHeight: 700,
+                      maxWidth: 700,
+                      compressQuality: 80,
                       aspectRatioPresets: [
                         CropAspectRatioPreset.square,
                         // CropAspectRatioPreset.ratio3x2,
@@ -258,6 +261,7 @@ class _PostScreenState extends State<PostScreen> {
                       iosUiSettings: IOSUiSettings(
                         minimumAspectRatio: 1.0,
                       ));
+
                   if (croppedFile != null) {
                     Navigator.push(
                       context,

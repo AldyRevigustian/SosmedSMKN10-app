@@ -54,14 +54,14 @@ class _LoadingState extends State<Loading> {
             size: 30,
             color: Colors.black.withOpacity(0.2),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Text(
-              "Please wait ...",
-              style:
-                  TextStyle(color: Colors.black.withOpacity(0.2), fontSize: 15),
-            ),
-          )
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 20),
+          //   child: Text(
+          //     "Please wait ...",
+          //     style:
+          //         TextStyle(color: Colors.black.withOpacity(0.2), fontSize: 15),
+          //   ),
+          // )
         ],
       ),
     );

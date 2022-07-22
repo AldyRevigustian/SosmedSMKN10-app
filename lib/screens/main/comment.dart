@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -167,107 +169,120 @@ class _CommentScreenState extends State<CommentScreen> {
                 ),
               )
             : Column(children: [
-                Expanded(
-                    child: RefreshIndicator(
-                        color: Colors.black,
-                        onRefresh: () {
-                          return _getComments();
-                        },
-                        child: ListView.builder(
-                            itemCount: _commentsList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              Comment comment = _commentsList[index];
-                              return Container(
-                                padding: EdgeInsets.all(10),
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color:
-                                                Colors.black.withOpacity(0.1),
-                                            width: 1))),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                _commentsList.length == 0
+                    ? Expanded(
+                        child: Center(
+                            child: Text(
+                        "No comment",
+                        style: TextStyle(
+                            color: Colors.black.withOpacity(0.2), fontSize: 15),
+                      )))
+                    : Expanded(
+                        child: RefreshIndicator(
+                            color: Colors.black,
+                            onRefresh: () {
+                              return _getComments();
+                            },
+                            child: ListView.builder(
+                                itemCount: _commentsList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  Comment comment = _commentsList[index];
+                                  return Container(
+                                    padding: EdgeInsets.all(10),
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.black
+                                                    .withOpacity(0.1),
+                                                width: 1))),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
-                                              width: 35,
-                                              height: 35,
-                                              decoration: BoxDecoration(
-                                                  image: comment.user.image !=
-                                                          null
-                                                      ? DecorationImage(
-                                                          image: NetworkImage(
-                                                              baseURLMobile +
-                                                                  '${comment.user.image}'),
-                                                          fit: BoxFit.cover)
-                                                      : null,
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  color: Colors.blueGrey),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  width: 35,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                      image: comment
+                                                                  .user.image !=
+                                                              null
+                                                          ? DecorationImage(
+                                                              image: NetworkImage(
+                                                                  baseURLMobile +
+                                                                      '${comment.user.image}'),
+                                                              fit: BoxFit.cover)
+                                                          : null,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      color: Colors.blueGrey),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Text(
+                                                  '${comment.user.name}',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 17),
+                                                )
+                                              ],
                                             ),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text(
-                                              '${comment.user.name}',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 17),
-                                            )
+                                            comment.user.id == userId
+                                                ? PopupMenuButton(
+                                                    child: Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                right: 10),
+                                                        child: Icon(
+                                                          Icons.more_vert,
+                                                          color: Colors.black
+                                                              .withOpacity(0.5),
+                                                        )),
+                                                    itemBuilder: (context) => [
+                                                      PopupMenuItem(
+                                                          child: Text('Delete'),
+                                                          value: 'delete')
+                                                    ],
+                                                    onSelected: (val) {
+                                                      // if (val == 'edit') {
+                                                      //   setState(() {
+                                                      //     _editCommentId =
+                                                      //         comment.id ?? 0;
+                                                      //     _txtCommentController.text =
+                                                      //         comment.comment ?? '';
+                                                      //   });
+                                                      if (val == 'delete') {
+                                                        _deleteComment(
+                                                            comment.id ?? 0);
+                                                      }
+                                                    },
+                                                  )
+                                                : SizedBox()
                                           ],
                                         ),
-                                        comment.user.id == userId
-                                            ? PopupMenuButton(
-                                                child: Padding(
-                                                    padding: EdgeInsets.only(
-                                                        right: 10),
-                                                    child: Icon(
-                                                      Icons.more_vert,
-                                                      color: Colors.black
-                                                          .withOpacity(0.5),
-                                                    )),
-                                                itemBuilder: (context) => [
-                                                  PopupMenuItem(
-                                                      child: Text('Delete'),
-                                                      value: 'delete')
-                                                ],
-                                                onSelected: (val) {
-                                                  // if (val == 'edit') {
-                                                  //   setState(() {
-                                                  //     _editCommentId =
-                                                  //         comment.id ?? 0;
-                                                  //     _txtCommentController.text =
-                                                  //         comment.comment ?? '';
-                                                  //   });
-                                                  if (val == 'delete') {
-                                                    _deleteComment(
-                                                        comment.id ?? 0);
-                                                  }
-                                                },
-                                              )
-                                            : SizedBox()
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          '${comment.comment}',
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      '${comment.comment}',
-                                      style: TextStyle(fontSize: 15),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }))),
+                                  );
+                                }))),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),

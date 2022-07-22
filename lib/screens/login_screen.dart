@@ -79,16 +79,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   "SMKN 10 JAKARTA",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 30,
-                      fontFamily: "Lato",
+                      fontSize: 40,
+                      fontFamily: "Billabong",
                       fontWeight: FontWeight.w500),
                 ),
                 Text(
                   "Social Media",
                   style: TextStyle(
                       color: Colors.black,
-                      fontSize: 25,
-                      fontFamily: "Montserrat"),
+                      fontSize: 30,
+                      fontFamily: "Billabong"),
                 ),
                 SizedBox(
                   height: height / 5,
@@ -108,15 +108,62 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 24,
                       ),
-                      TextFieldInput(
+                      // TextFieldInput(
+
+                      //   textEditingController: ,
+                      //   hintText: 'Password',
+                      //   textInputType: TextInputType.text,
+
+                      //   // textEditingController: _passwordController,
+                      //   isPass: true,
+                      // ),
+                      TextFormField(
+                        controller: txtPassword,
                         validator: (val) =>
                             val.length < 6 ? 'Required at least 6 chars' : null,
-                        textEditingController: txtPassword,
-                        hintText: 'Password',
-                        textInputType: TextInputType.text,
-
-                        // textEditingController: _passwordController,
-                        isPass: true,
+                        decoration: InputDecoration(
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: IconButton(
+                              hoverColor: Colors.transparent,
+                              splashColor: Colors.transparent,
+                              icon: _isObscure
+                                  ? Icon(
+                                      Icons.visibility,
+                                      color: Colors.black54,
+                                    )
+                                  : Icon(
+                                      Icons.visibility_off,
+                                      color: Colors.black54,
+                                    ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                            ),
+                          ),
+                          fillColor: CustColors.primaryWhite,
+                          hintText: "Password",
+                          // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide:
+                                  BorderSide(color: CustColors.primaryWhite)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide:
+                                  BorderSide(color: CustColors.primaryWhite)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(100),
+                              borderSide:
+                                  BorderSide(color: CustColors.primaryWhite)),
+                          filled: true,
+                          contentPadding:
+                              const EdgeInsets.fromLTRB(20, 8, 8, 8),
+                        ),
+                        keyboardType: TextInputType.text,
+                        obscureText: _isObscure,
                       ),
                       const SizedBox(
                         height: 24,
