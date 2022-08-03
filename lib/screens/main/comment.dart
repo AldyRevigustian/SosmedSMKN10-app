@@ -232,7 +232,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 16),
+                                                      fontSize: 17),
                                                 )
                                               ],
                                             ),

@@ -37,7 +37,7 @@ class _PostScreenState extends State<PostScreen> {
   Future pickImage() async {
     try {
       var image = await ImagePicker()
-          .getImage(source: ImageSource.gallery, imageQuality: 50);
+          .getImage(source: ImageSource.gallery, imageQuality: 70);
       if (image == null) return;
 
       setState(() {
@@ -56,7 +56,7 @@ class _PostScreenState extends State<PostScreen> {
   Future pickImageC() async {
     try {
       final image = await ImagePicker()
-          .getImage(source: ImageSource.camera, imageQuality: 50);
+          .getImage(source: ImageSource.camera, imageQuality: 70);
 
       if (image == null) return;
 
@@ -240,7 +240,7 @@ class _PostScreenState extends State<PostScreen> {
                       sourcePath: decodedimgfile.path,
                       maxHeight: 700,
                       maxWidth: 700,
-                      compressQuality: 80,
+                      // compressQuality: 90,
                       aspectRatioPresets: [
                         CropAspectRatioPreset.square,
                         // CropAspectRatioPreset.ratio3x2,

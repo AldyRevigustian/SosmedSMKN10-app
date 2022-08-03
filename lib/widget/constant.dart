@@ -6,10 +6,17 @@ import 'package:numeral/fun.dart';
 // const baseURL = 'http://your-Ip:8000/api';
 
 // Sekolah
-const baseURL = 'http://192.168.0.105:8000/api';
-const baseURLMobile = 'http://192.168.0.105:8000';
+// const baseURL = 'http://192.168.36.218:8000/api';
+// const baseURLMobile = 'http://192.168.36.218:8000';
+
+// const baseURL = 'http://192.168.0.112:8000/api';
+// const baseURLMobile = 'http://192.168.0.112:8000';
 
 // Rumah
+// const baseURL = 'http://192.168.0.113:8000/api';
+// const baseURLMobile = 'http://192.168.0.113:8000';
+const baseURL = 'http://192.168.0.119:8000/api';
+const baseURLMobile = 'http://192.168.0.119:8000';
 // const baseURL = 'http://192.168.0.11:8000/api';
 // const baseURLMobile = 'http://192.168.0.11:8000';
 

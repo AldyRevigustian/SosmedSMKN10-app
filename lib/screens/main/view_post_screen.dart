@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
@@ -99,6 +100,10 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
 
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: CustColors.primaryWhite,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
     retrievePosts(widget.id);
     // TODO: implement initState
     super.initState();
@@ -108,7 +113,6 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         // backgroundColor: Colors.white,
-
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Padding(
@@ -394,7 +398,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                         ),
                                       ),
                                       Readmore(
-                                        // user: post.user.name,
+                                        user: post.user.name,
                                         caption: post.body,
                                       ),
                                     ],

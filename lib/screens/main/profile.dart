@@ -95,7 +95,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Container(
       child: Scaffold(
-        // backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         appBar: AppBar(
             backgroundColor: Colors.white,
             title: Padding(
@@ -251,13 +251,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         },
                                         child: CircleAvatar(
                                           radius: 18,
-                                          backgroundColor: CustColors
-                                              .primaryBlue
-                                              .withOpacity(1),
+                                          backgroundColor: Colors.white,
                                           child: Icon(
                                             Icons.edit,
                                             size: 18,
-                                            color: Colors.white,
+                                            color: Colors.black,
                                           ),
                                         ),
                                       ),

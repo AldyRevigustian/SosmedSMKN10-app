@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/helper/get_helper.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
@@ -47,6 +48,25 @@ class _AddPostState extends State<AddPost> {
       //   _loading = !_loading;
       // });
     }
+  }
+
+  showLoadingProgress(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) => Center(
+                // Aligns the container to center
+                child: Container(
+              // A simplified version of dialog.
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
+              width: 100.0,
+              height: 100.0,
+              child: SpinKitFadingCube(
+                size: 30,
+                color: Colors.black.withOpacity(0.2),
+              ),
+            )));
   }
 
   @override
@@ -198,6 +218,7 @@ class _AddPostState extends State<AddPost> {
                 //   ),
                 // );
                 if (_formKey.currentState.validate()) {
+                  showLoadingProgress(context);
                   _createPost();
                 }
               }

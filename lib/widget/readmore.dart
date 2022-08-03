@@ -20,8 +20,8 @@ class _ReadmoreState extends State<Readmore> {
 
   @override
   void initState() {
-    if (widget.caption.length > 90) {
-      firstHalf = widget.caption.substring(0, 90);
+    if (widget.caption.length > 100) {
+      firstHalf = widget.caption.substring(0, 100);
       secondHalf = widget.caption.substring(50, widget.caption.length);
     } else {
       firstHalf = widget.caption;
@@ -43,14 +43,50 @@ class _ReadmoreState extends State<Readmore> {
             child: secondHalf.isEmpty
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 0),
-                    child: new Text(firstHalf, style: TextStyle(fontSize: 15)),
+                    // child: new Text("@" + widget.user + " " + firstHalf,
+                    //     style: TextStyle(fontSize: 15)),
+                    child: RichText(
+                        text: TextSpan(
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black), //apply style to all
+                            children: [
+                          TextSpan(
+                              text: "@" + widget.user + " ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextSpan(text: firstHalf),
+                        ])),
                   )
                 : new Column(
                     children: <Widget>[
-                      Text(
-                        flag ? (firstHalf + "...") : (firstHalf + secondHalf),
-                        style: TextStyle(fontSize: 15),
-                      ),
+                      flag
+                          ? RichText(
+                              text: TextSpan(
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black), //apply style to all
+                                  children: [
+                                  TextSpan(
+                                      text: "@" + widget.user + " ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(text: firstHalf + "..."),
+                                ]))
+                          : RichText(
+                              text: TextSpan(
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.black), //apply style to all
+                                  children: [
+                                  TextSpan(
+                                      text: "@" + widget.user + " ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(text: firstHalf + secondHalf),
+                                ])),
+                      // ? ("@" + widget.user + " " + firstHalf + "...")
+                      // : ("@" + widget.user + " " + firstHalf + secondHalf),
+
                       new InkWell(
                         child: new Row(
                           mainAxisAlignment: MainAxisAlignment.end,

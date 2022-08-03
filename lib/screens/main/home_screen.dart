@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -162,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         CircleAvatar(
-                          radius: 15,
+                          radius: 17,
                           child: ClipOval(
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
@@ -302,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                           Icon(
                                                                     Icons.error,
                                                                     color: Colors
-                                                                        .white
+                                                                        .black
                                                                         .withOpacity(
                                                                             0.8),
                                                                   ),
@@ -381,7 +381,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                     child:
                                                                         CachedNetworkImage(
                                                                       fit: BoxFit
-                                                                          .contain,
+                                                                          .cover,
                                                                       imageUrl:
                                                                           baseURLMobile +
                                                                               post.image,
@@ -392,7 +392,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                             30,
                                                                         color: Colors
                                                                             .white
-                                                                            .withOpacity(0.8),
+                                                                            .withOpacity(0.3),
                                                                       ),
                                                                       errorWidget: (context,
                                                                               url,
@@ -518,6 +518,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 ),
                                                               ),
                                                               Readmore(
+                                                                user: post
+                                                                    .user.name,
                                                                 // user: post.user.name,
                                                                 caption:
                                                                     post.body,
@@ -647,7 +649,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           child: Container(
                                                             decoration:
                                                                 BoxDecoration(
-                                                              // color: Colors.black.withOpacity(0.8),
+                                                              // color:
+                                                              //     Colors.white,
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -669,7 +672,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               child:
                                                                   CachedNetworkImage(
                                                                 fit: BoxFit
-                                                                    .contain,
+                                                                    .cover,
                                                                 imageUrl:
                                                                     baseURLMobile +
                                                                         post.image,
@@ -680,7 +683,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                   color: Colors
                                                                       .white
                                                                       .withOpacity(
-                                                                          0.8),
+                                                                          0.3),
                                                                 ),
                                                                 errorWidget:
                                                                     (context,
@@ -821,6 +824,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           ),
                                                         ),
                                                         Readmore(
+                                                          user: post.user.name,
                                                           // user: post.user.name,
                                                           caption: post.body,
                                                         ),

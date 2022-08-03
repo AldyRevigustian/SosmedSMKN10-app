@@ -178,7 +178,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 60,
                   ),
+                  // TextFormField(
+                  // validator: (value) {
+                  //   if (value.isEmpty ||
+                  //       !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
+                  //     //allow upper and lower case alphabets and space
+                  //     return "Enter Correct Full Name";
+                  //   } else {
+                  //     return null;
+                  //   }
+                  // },
+                  //   controller: fullnameController,
+                  //   decoration: InputDecoration(
+                  //     hintText: "Full Name",
+                  //     prefixIcon: Padding(
+                  //         padding: EdgeInsets.only(right: 10),
+                  //         child: Icon(Icons.person)),
+                  //   ),
+                  // ),
                   TextFormField(
+                    controller: fullnameController,
                     validator: (value) {
                       if (value.isEmpty ||
                           !RegExp(r'^[a-z A-Z]+$').hasMatch(value)) {
@@ -188,18 +207,54 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       }
                     },
-                    controller: fullnameController,
                     decoration: InputDecoration(
-                      hintText: "Full Name",
                       prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.person)),
+                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.person),
+                      ),
+                      fillColor: CustColors.primaryWhite,
+                      hintText: "Full Name",
+                      // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      filled: true,
+                      contentPadding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
                     ),
+                    keyboardType: TextInputType.name,
                   ),
                   SizedBox(
                     height: 20,
                   ),
+                  // TextFormField(
+                  // validator: (value) {
+                  //   bool basic = UValidator.validateThis(username: value);
+                  //   if (value.isEmpty || !basic) {
+                  //     //allow upper and lower case alphabets and space
+                  //     return "Enter Correct Username";
+                  //   } else {
+                  //     return null;
+                  //   }
+                  // },
+                  //   controller: nameController,
+                  //   decoration: InputDecoration(
+                  //     hintText: "Username",
+                  //     prefixIcon: Padding(
+                  //         padding: EdgeInsets.only(right: 10),
+                  //         child: Icon(Icons.alternate_email)),
+                  //   ),
+                  // ),
                   TextFormField(
+                    controller: nameController,
                     validator: (value) {
                       bool basic = UValidator.validateThis(username: value);
                       if (value.isEmpty || !basic) {
@@ -209,20 +264,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         return null;
                       }
                     },
-                    controller: nameController,
                     decoration: InputDecoration(
-                      hintText: "Username",
                       prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.alternate_email)),
+                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.alternate_email),
+                      ),
+                      fillColor: CustColors.primaryWhite,
+                      hintText: "Username",
+                      // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      filled: true,
+                      contentPadding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
                     ),
+                    keyboardType: TextInputType.name,
                   ),
                   SizedBox(
                     height: 20,
                   ),
+                  // TextFormField(
+                  //   controller: emailController,
+                  //   keyboardType: TextInputType.emailAddress,
+                  //   validator: (value) {
+                  //     if (value.isEmpty ||
+                  //         !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  //             .hasMatch(value)) {
+                  //       //allow upper and lower case alphabets and space
+                  //       return "Enter Correct Email";
+                  //     } else {
+                  //       return null;
+                  //     }
+                  //   },
+                  //   decoration: InputDecoration(
+                  //     hintText: "Email",
+                  //     prefixIcon: Padding(
+                  //         padding: EdgeInsets.only(right: 10),
+                  //         child: Icon(Icons.email)),
+                  //   ),
+                  // ),
                   TextFormField(
                     controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       if (value.isEmpty ||
                           !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
@@ -234,42 +325,112 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                     },
                     decoration: InputDecoration(
-                      hintText: "Email",
                       prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.email)),
+                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.email),
+                      ),
+                      fillColor: CustColors.primaryWhite,
+                      hintText: "Email",
+                      // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      filled: true,
+                      contentPadding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
                     ),
+                    keyboardType: TextInputType.name,
                   ),
                   SizedBox(
                     height: 20,
                   ),
+                  // TextFormField(
+                  //   controller: passwordController,
+                  //   validator: (val) =>
+                  //       val.length < 6 ? 'Required at least 6 chars' : null,
+                  //   obscureText: _isObscure,
+                  //   decoration: InputDecoration(
+                  //     suffixIcon: IconButton(
+                  //       icon: _isObscure
+                  //           ? Icon(
+                  //               Icons.visibility,
+                  //               color: Colors.black54,
+                  //             )
+                  //           : Icon(
+                  //               Icons.visibility_off,
+                  //               color: Colors.black54,
+                  //             ),
+                  //       onPressed: () {
+                  //         setState(() {
+                  //           _isObscure = !_isObscure;
+                  //         });
+                  //       },
+                  //     ),
+                  //     hintText: "Password",
+                  //     prefixIcon: Padding(
+                  //         padding: EdgeInsets.only(right: 10),
+                  //         child: Icon(Icons.vpn_key_sharp)),
+                  //   ),
+                  // ),
+
                   TextFormField(
+                    obscureText: _isObscure,
                     controller: passwordController,
                     validator: (val) =>
                         val.length < 6 ? 'Required at least 6 chars' : null,
-                    obscureText: _isObscure,
                     decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: _isObscure
-                            ? Icon(
-                                Icons.visibility,
-                                color: Colors.black54,
-                              )
-                            : Icon(
-                                Icons.visibility_off,
-                                color: Colors.black54,
-                              ),
-                        onPressed: () {
-                          setState(() {
-                            _isObscure = !_isObscure;
-                          });
-                        },
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.only(right: 5),
+                        child: IconButton(
+                          hoverColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          icon: _isObscure
+                              ? Icon(
+                                  Icons.visibility,
+                                  color: Colors.black54,
+                                )
+                              : Icon(
+                                  Icons.visibility_off,
+                                  color: Colors.black54,
+                                ),
+                          onPressed: () {
+                            setState(() {
+                              _isObscure = !_isObscure;
+                            });
+                          },
+                        ),
                       ),
-                      hintText: "Password",
                       prefixIcon: Padding(
-                          padding: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.vpn_key_sharp)),
+                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        child: Icon(Icons.lock),
+                      ),
+                      fillColor: CustColors.primaryWhite,
+                      hintText: "Password",
+                      // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(100),
+                          borderSide:
+                              BorderSide(color: CustColors.primaryWhite)),
+                      filled: true,
+                      contentPadding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
                     ),
+                    keyboardType: TextInputType.name,
                   ),
 
                   // SizedBox(
@@ -280,6 +441,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   MaterialButton(
                     onPressed: () {
+                      log("Oke");
                       if (formKey.currentState.validate()) {
                         if (_imageFile != null) {
                           setState(() {

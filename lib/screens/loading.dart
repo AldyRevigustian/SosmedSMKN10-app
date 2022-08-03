@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/screens/login_screen.dart';
@@ -40,6 +41,10 @@ class _LoadingState extends State<Loading> {
 
   @override
   void initState() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: CustColors.primaryWhite,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ));
     _loadUserInfo();
     super.initState();
   }

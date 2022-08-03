@@ -46,6 +46,25 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (context) => Navbar()), (route) => false);
   }
 
+  showLoadingProgress(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (_) => Center(
+                // Aligns the container to center
+                child: Container(
+              // A simplified version of dialog.
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(8)),
+              width: 100.0,
+              height: 100.0,
+              child: SpinKitFadingCube(
+                size: 30,
+                color: Colors.black.withOpacity(0.2),
+              ),
+            )));
+  }
+
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -179,6 +198,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (formkey.currentState.validate()) {
                             setState(() {
                               loading = true;
+                              showLoadingProgress(context);
                               _loginUser();
                             });
                           }
@@ -211,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Container(
                             child: const Text(
-                              'Dont have an acount?',
+                              "Don't have an acount?",
                             ),
                             padding: const EdgeInsets.symmetric(vertical: 8),
                           ),
