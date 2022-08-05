@@ -146,7 +146,7 @@ class _AddPostState extends State<AddPost> {
                           vertical: 5.0,
                         ),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                         // color: Color(0xFF23B66F),
                         color: CustColors.primaryBlue.withOpacity(0.9),

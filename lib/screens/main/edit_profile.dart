@@ -342,7 +342,7 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           color: CustColors.primaryBlue,
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100)),
+                              borderRadius: BorderRadius.circular(10)),
                         ),
                       ],
                     ),

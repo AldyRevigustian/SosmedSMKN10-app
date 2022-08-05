@@ -125,7 +125,7 @@ class _CommentScreenState extends State<CommentScreen> {
         title: Padding(
           padding: EdgeInsets.only(top: 5),
           child: Text(
-            "Profile",
+            "Comments",
             style: TextStyle(color: Colors.black, fontSize: 25),
           ),
         ),

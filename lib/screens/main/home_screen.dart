@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             'SMKN 10',
                             style: TextStyle(
-                              fontFamily: 'Billabong',
+                              // fontFamily: 'Billabong',
                               fontSize: 25.0,
                             ),
                           ),

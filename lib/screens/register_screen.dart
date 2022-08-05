@@ -209,22 +209,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        padding: const EdgeInsets.only(left: 15, right: 15),
                         child: Icon(Icons.person),
                       ),
                       fillColor: CustColors.primaryWhite,
                       hintText: "Full Name",
                       // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       filled: true,
@@ -266,22 +266,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        padding: const EdgeInsets.only(left: 15, right: 15),
                         child: Icon(Icons.alternate_email),
                       ),
                       fillColor: CustColors.primaryWhite,
                       hintText: "Username",
                       // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       filled: true,
@@ -326,22 +326,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        padding: const EdgeInsets.only(left: 15, right: 15),
                         child: Icon(Icons.email),
                       ),
                       fillColor: CustColors.primaryWhite,
                       hintText: "Email",
                       // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       filled: true,
@@ -409,22 +409,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       prefixIcon: Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        padding: const EdgeInsets.only(left: 15, right: 15),
                         child: Icon(Icons.lock),
                       ),
                       fillColor: CustColors.primaryWhite,
                       hintText: "Password",
                       // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(100),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide:
                               BorderSide(color: CustColors.primaryWhite)),
                       filled: true,
@@ -473,7 +473,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     color: CustColors.primaryBlue,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100)),
+                        borderRadius: BorderRadius.circular(10)),
                   ),
                   const SizedBox(
                     height: 12,
