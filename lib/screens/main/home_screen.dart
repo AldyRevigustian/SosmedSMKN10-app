@@ -147,17 +147,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Container(
                           margin: EdgeInsets.only(top: 5),
                           child: Text(
-                            'SMKN 10',
+                            'Home',
                             style: TextStyle(
-                              // fontFamily: 'Billabong',
-                              fontSize: 25.0,
+                              fontFamily: 'Billabong',
+                              fontSize: 30.0,
                             ),
                           ),
                         ),

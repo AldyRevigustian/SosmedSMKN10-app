@@ -80,12 +80,19 @@ class _PostScreenState extends State<PostScreen> {
   // }
 
   _handleScrollEvent(ScrollNotification scroll) {
-    if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {
+    if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.1) {
       if (currentPage != lastPage) {
         _fetchNewMedia();
       }
     }
   }
+  // _handleScrollEvent(ScrollNotification scroll) {
+  //   if (scroll.metrics.pixels / scroll.metrics.maxScrollExtent > 0.33) {
+  //     if (currentPage != lastPage) {
+  //       _fetchNewMedia();
+  //     }
+  //   }
+  // }
 
   _fetchNewMedia() async {
     lastPage = currentPage;
@@ -97,7 +104,7 @@ class _PostScreenState extends State<PostScreen> {
           await PhotoManager.getAssetPathList(onlyAll: true);
       print(albums);
       List<AssetEntity> media =
-          await albums[0].getAssetListPaged(currentPage, 15);
+          await albums[0].getAssetListPaged(currentPage, 18);
       // List<AssetEntity> media =
       //     await albums[0].getAssetListPaged(currentPage, 15);
       print(media);
@@ -344,8 +351,8 @@ class _PostScreenState extends State<PostScreen> {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
                     ),
                     boxShadow: [
                       BoxShadow(

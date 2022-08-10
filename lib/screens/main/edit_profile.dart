@@ -194,7 +194,7 @@ class _EditProfileState extends State<EditProfile> {
                     key: formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // SizedBox(
                         //   height: 30,
@@ -231,50 +231,52 @@ class _EditProfileState extends State<EditProfile> {
                         //     ),
                         //   ]),
                         // ),
-                        CircleAvatar(
-                          radius: 80,
-                          child: Stack(
-                            children: [
-                              ClipOval(
-                                child: _imageFile != null
-                                    ? Image.file(
-                                        _imageFile,
-                                        fit: BoxFit.cover,
-                                        width: 200,
-                                        height: 200,
-                                      )
-                                    : CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                        width: 200,
-                                        height: 200,
-                                        imageUrl: baseURLMobile + user.image,
-                                        placeholder: (context, url) => Center(
-                                          child: Image.asset(
-                                              'assets/images/user0.png'),
+                        Center(
+                          child: CircleAvatar(
+                            radius: 80,
+                            child: Stack(
+                              children: [
+                                ClipOval(
+                                  child: _imageFile != null
+                                      ? Image.file(
+                                          _imageFile,
+                                          fit: BoxFit.cover,
+                                          width: 200,
+                                          height: 200,
+                                        )
+                                      : CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          width: 200,
+                                          height: 200,
+                                          imageUrl: baseURLMobile + user.image,
+                                          placeholder: (context, url) => Center(
+                                            child: Image.asset(
+                                                'assets/images/user0.png'),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      getImage();
+                                      // Navigator.pop(context);
+                                    },
+                                    child: CircleAvatar(
+                                      radius: 18,
+                                      backgroundColor:
+                                          CustColors.primaryBlue.withOpacity(1),
+                                      child: Icon(
+                                        Icons.camera,
+                                        color: Colors.white,
                                       ),
-                              ),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    getImage();
-                                    // Navigator.pop(context);
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 18,
-                                    backgroundColor:
-                                        CustColors.primaryBlue.withOpacity(1),
-                                    child: Icon(
-                                      Icons.camera,
-                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -293,6 +295,7 @@ class _EditProfileState extends State<EditProfile> {
                           },
                           controller: nameController,
                           decoration: InputDecoration(
+                            label: Text("Enter new username"),
                             hintText: user.name,
                             hintStyle:
                                 TextStyle(color: Colors.black.withOpacity(0.5)),

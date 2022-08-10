@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -33,6 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         loading = false;
       });
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+          (route) => false);
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('${response.error}')));
     }
@@ -81,30 +86,55 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return Scaffold(
       // backgroundColor: CustColors.primaryBlue,
-      // resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Form(
-          key: formkey,
-          child: Container(
-            decoration: BoxDecoration(
-                // image: DecorationImage(
-                //     image: AssetImage(
-                //       'assets/images/bgg.png',
-                //     ),
-                //     fit: BoxFit.fitHeight),
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.centerRight,
-                    colors: [Colors.blue[800], Colors.blue[600]])),
-            constraints: BoxConstraints(maxHeight: height, maxWidth: width),
-            child: Column(
+      resizeToAvoidBottomInset: false,
+      body: Form(
+        key: formkey,
+        child: Stack(
+          children: [
+            ConstrainedBox(
+              constraints:
+                  BoxConstraints(minHeight: height / 2, minWidth: width),
+              // child: CachedNetworkImage(
+              //   fit: BoxFit.cover,
+              //   width: 160,
+              //   height: 160,
+              //   imageUrl: baseURLMobile + user.image,
+              //   placeholder: (context, url) => Center(
+              //     child: Image.asset('assets/images/user0.png'),
+              //   ),
+              //   errorWidget: (context, url, error) => Icon(Icons.error),
+              // ),
+              child: Image.asset(
+                'assets/images/kelas.jpg',
+                fit: BoxFit.cover,
+              ),
+              // child: Container(
+              //   color: CustColors.primaryBlue,
+              // ),
+            ),
+            Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints.expand(),
+                child: new ClipRect(
+                  child: new BackdropFilter(
+                    filter: new ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
+                    child: new Container(
+                      // width: 180.0,
+                      // height: 200.0,
+                      decoration: new BoxDecoration(
+                          color: Colors.grey.shade200.withOpacity(0.3)),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Column(
               // crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                    flex: 4,
+                    flex: 5,
                     child: Container(
                       height: height,
                       width: width,
@@ -112,9 +142,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 35, horizontal: 20),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Image.asset(
+                              'assets/images/smk10logorapi.png',
+                              width: 120,
+                            ),
+                            SizedBox(
+                              height: 30,
+                            ),
                             Text(
                               "SMKN 10 JAKARTA",
                               style: TextStyle(
@@ -192,18 +229,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                               fillColor: CustColors.primaryWhite,
+                              // fillColor: Colors.grey.shade200,
                               hintText: "Password",
                               // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
                               border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
                                       color: CustColors.primaryWhite)),
                               focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
                                       color: CustColors.primaryWhite)),
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
                                       color: CustColors.primaryWhite)),
                               filled: true,
@@ -244,9 +282,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            color: Colors.blue[600],
+                            color: CustColors.primaryBlue,
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
+                                borderRadius: BorderRadius.circular(10)),
                           ),
                           const SizedBox(
                             height: 12,
@@ -290,7 +328,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-          ),
+          ],
         ),
       ),
     );

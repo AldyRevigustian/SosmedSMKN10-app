@@ -106,27 +106,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             centerTitle: true,
-            // actions: [
-            //   InkWell(
-            //     onTap: () {
-            //       logout().then((value) => {
-            //             Navigator.of(context).pushAndRemoveUntil(
-            //                 MaterialPageRoute(
-            //                     builder: (context) => LoginScreen()),
-            //                 (route) => false)
-            //           });
-            //     },
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(15.0),
-            //       child: Icon(
-            //         // FluentIcons.sign_out_20_filled,
-            //         Icons.logout,
-            //         color: Colors.black,
-            //         size: 23,
-            //       ),
-            //     ),
-            //   )
-            // ],
+            actions: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditProfile(
+                              // func: refresh,
+                              ))).then((value) {
+                    setState(() {
+                      refresh();
+                    });
+                  });
+                  // Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Icon(
+                    // FluentIcons.sign_out_20_filled,
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 23,
+                  ),
+                ),
+              )
+            ],
             leading: InkWell(
               onTap: () {
                 logout().then((value) => {
@@ -232,34 +237,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             Icon(Icons.error),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      EditProfile(
-                                                          // func: refresh,
-                                                          ))).then((value) {
-                                            setState(() {
-                                              refresh();
-                                            });
-                                          });
-                                          // Navigator.pop(context);
-                                        },
-                                        child: CircleAvatar(
-                                          radius: 18,
-                                          backgroundColor: Colors.white,
-                                          child: Icon(
-                                            Icons.edit,
-                                            size: 18,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    // Align(
+                                    //   alignment: Alignment.bottomRight,
+                                    //   child: GestureDetector(
+                                    //     onTap: () {
+                                    //       Navigator.push(
+                                    //           context,
+                                    //           MaterialPageRoute(
+                                    //               builder: (context) =>
+                                    //                   EditProfile(
+                                    //                       // func: refresh,
+                                    //                       ))).then((value) {
+                                    //         setState(() {
+                                    //           refresh();
+                                    //         });
+                                    //       });
+                                    //       // Navigator.pop(context);
+                                    //     },
+                                    //     // child: CircleAvatar(
+                                    //     //   radius: 18,
+                                    //     //   backgroundColor: Colors.white,
+                                    //     //   child: Icon(
+                                    //     //     Icons.edit,
+                                    //     //     size: 18,
+                                    //     //     color: Colors.black,
+                                    //     //   ),
+                                    //     // ),
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                               ),
@@ -342,8 +347,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     const EdgeInsets.fromLTRB(13, 13, 13, 0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.0),
-                                    topRight: Radius.circular(20.0),
+                                    topLeft: Radius.circular(10.0),
+                                    topRight: Radius.circular(10.0),
                                   ),
                                   child: GridView.builder(
                                       itemCount: _postList.length,

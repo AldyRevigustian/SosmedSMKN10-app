@@ -30,13 +30,13 @@ class TextFieldInput extends StatelessWidget {
         hintText: hintText,
         // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: CustColors.primaryWhite)),
         focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: CustColors.primaryWhite)),
         enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: CustColors.primaryWhite)),
         filled: true,
         contentPadding: const EdgeInsets.fromLTRB(20, 8, 8, 8),

@@ -126,7 +126,10 @@ class _NavbarState extends State<Navbar> {
                           borderRadius: BorderRadius.circular(10.0),
                         ),
                         // color: Color(0xFF23B66F),
-                        color: CustColors.primaryBlue.withOpacity(0.9),
+
+                        color: curent == 1
+                            ? CustColors.primaryBlue
+                            : CustColors.primaryBlue.withOpacity(0.8),
                         onPressed: () {
                           setState(() {
                             curentScreen = PostScreen();
