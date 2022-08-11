@@ -43,8 +43,7 @@ class _CommentScreenState extends State<CommentScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -66,8 +65,7 @@ class _CommentScreenState extends State<CommentScreen> {
       setState(() {
         _loading = false;
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -87,8 +85,7 @@ class _CommentScreenState extends State<CommentScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -105,8 +102,7 @@ class _CommentScreenState extends State<CommentScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 

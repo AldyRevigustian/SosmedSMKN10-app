@@ -367,18 +367,27 @@ class _PostScreenState extends State<PostScreen> {
                       topLeft: Radius.circular(10.0),
                       topRight: Radius.circular(10.0),
                     ),
-                    child: GridView.builder(
-                        // padding: EdgeInsets.all(10),
-                        itemCount: _mediaList.length,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 5,
-                            crossAxisSpacing: 5,
-                            crossAxisCount: 3),
-                        itemBuilder: (BuildContext context, int index) {
-                          return ClipRRect(
-                              borderRadius: BorderRadius.circular(5),
-                              child: _mediaList[index]);
-                        }),
+                    child:
+                        NotificationListener<OverscrollIndicatorNotification>(
+                      onNotification:
+                          (OverscrollIndicatorNotification overscroll) {
+                        overscroll.disallowGlow();
+                        return;
+                      },
+                      child: GridView.builder(
+                          // padding: EdgeInsets.all(10),
+                          itemCount: _mediaList.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  mainAxisSpacing: 5,
+                                  crossAxisSpacing: 5,
+                                  crossAxisCount: 3),
+                          itemBuilder: (BuildContext context, int index) {
+                            return ClipRRect(
+                                borderRadius: BorderRadius.circular(5),
+                                child: _mediaList[index]);
+                          }),
+                    ),
                   ),
                 ),
               ),

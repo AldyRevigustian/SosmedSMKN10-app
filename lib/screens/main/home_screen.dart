@@ -60,9 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${response.error}'),
-      ));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -79,8 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -98,8 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -170,7 +166,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 160,
                               imageUrl: baseURLMobile + user.image,
                               placeholder: (context, url) => Center(
-                                child: Image.asset('assets/images/user0.png'),
+                                // child: Image.asset('assets/images/user0.png'),
+                                child: Container(
+                                  color: Colors.white,
+                                ),
                               ),
                               errorWidget: (context, url, error) =>
                                   Icon(Icons.error),
@@ -291,9 +290,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       (context,
                                                                               url) =>
                                                                           Center(
-                                                                    child: Image
-                                                                        .asset(
-                                                                            'assets/images/user0.png'),
+                                                                    // child: Image
+                                                                    //     .asset(
+                                                                    //         'assets/images/user0.png'),
+                                                                    child:
+                                                                        Container(
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
                                                                   ),
                                                                   errorWidget:
                                                                       (context,
@@ -592,8 +596,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 (context,
                                                                         url) =>
                                                                     Center(
-                                                              child: Image.asset(
-                                                                  'assets/images/user0.png'),
+                                                              // child: Image.asset(
+                                                              //     'assets/images/user0.png'),
+                                                              child: Container(
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
                                                             ),
                                                             errorWidget:
                                                                 (context, url,

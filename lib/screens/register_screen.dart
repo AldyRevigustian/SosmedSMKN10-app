@@ -93,8 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         loading = !loading;
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -449,9 +448,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           });
                           _registerUser();
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Please add profile picture"),
-                          ));
+                          kErrorSnackbar(context, "Please add profile picture");
                         }
                       }
                     },

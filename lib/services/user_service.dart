@@ -101,7 +101,8 @@ Future<ApiResponse> getUserDetail() async {
 }
 
 // Update user
-Future<ApiResponse> updateUser(String name, String image) async {
+Future<ApiResponse> updateUser(
+    String username, String image, String fullname) async {
   ApiResponse apiResponse = ApiResponse();
   try {
     String token = await getToken();
@@ -112,9 +113,10 @@ Future<ApiResponse> updateUser(String name, String image) async {
         },
         body: image == null
             ? {
-                'name': name,
+                'name': username,
+                'fullname': fullname,
               }
-            : {'name': name, 'image': image});
+            : {'name': username, 'fullname': fullname, 'image': image});
     // user can update his/her name or name and image
 
     switch (response.statusCode) {

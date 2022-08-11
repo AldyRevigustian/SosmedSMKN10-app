@@ -57,9 +57,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${response.error}'),
-      ));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -76,8 +74,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -93,8 +90,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 

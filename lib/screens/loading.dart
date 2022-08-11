@@ -32,9 +32,7 @@ class _LoadingState extends State<Loading> {
             MaterialPageRoute(builder: (context) => LoginScreen()),
             (route) => false);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('${response.error}'),
-        ));
+        kErrorSnackbar(context, '${response.error}');
       }
     }
   }

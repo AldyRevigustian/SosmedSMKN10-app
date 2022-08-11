@@ -44,6 +44,8 @@ const somethingWentWrong = 'Something went wrong, try again!';
 class CustColors {
   static Color primaryWhite = Color(0xFFf4f6f9);
   static Color primaryBlue = Colors.blue[700];
+  static Color primaryGreen = Colors.green[700];
+  static Color primaryRed = Colors.red[700];
   // static const Color primaryBlue = Color.fromRGBO(0, 149, 246, 1);
 }
 
@@ -163,4 +165,25 @@ kComment(IconData icon, Color color, Function onTap, value) {
       ),
     ),
   );
+}
+
+kSnackbar(BuildContext context, String text) {
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(text, style: TextStyle(color: Colors.white)),
+    backgroundColor: CustColors.primaryBlue,
+  ));
+}
+
+kSuccessSnackbar(BuildContext context, String text) {
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(text, style: TextStyle(color: Colors.white)),
+    backgroundColor: CustColors.primaryGreen,
+  ));
+}
+
+kErrorSnackbar(BuildContext context, String text) {
+  return ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(text, style: TextStyle(color: Colors.white)),
+    backgroundColor: CustColors.primaryRed,
+  ));
 }

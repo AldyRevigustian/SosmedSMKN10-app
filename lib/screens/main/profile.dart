@@ -48,9 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('${response.error}'),
-      ));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -70,8 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 (route) => false)
           });
     } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('${response.error}')));
+      kErrorSnackbar(context, '${response.error}');
     }
   }
 
@@ -209,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
-                        height: height / 2.8,
+                        height: height / 2.5,
                         // color: Colors.red,
                         child: Center(
                           child: Column(
@@ -220,14 +217,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //   height: 30,
                               // ),
                               CircleAvatar(
-                                radius: 70,
+                                radius: 80,
                                 child: Stack(
                                   children: [
                                     ClipOval(
                                       child: CachedNetworkImage(
                                         fit: BoxFit.cover,
-                                        width: 160,
-                                        height: 160,
+                                        width: 200,
+                                        height: 200,
                                         imageUrl: baseURLMobile + user.image,
                                         placeholder: (context, url) => Center(
                                           child: Image.asset(
@@ -273,7 +270,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               ConstrainedBox(
                                 constraints: BoxConstraints(
-                                    minWidth: 160,
+                                    minWidth: 190,
                                     // minHeight: 20,
                                     maxWidth: 300),
                                 child: Container(
@@ -332,7 +329,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black.withOpacity(0.1),
-                                  offset: Offset(0, -2),
+                                  offset: Offset(0, -3),
                                   blurRadius: 2)
                             ]),
                         child: _postList.length == 0
@@ -350,54 +347,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     topLeft: Radius.circular(10.0),
                                     topRight: Radius.circular(10.0),
                                   ),
-                                  child: GridView.builder(
-                                      itemCount: _postList.length,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                              mainAxisSpacing: 5,
-                                              crossAxisSpacing: 5,
-                                              crossAxisCount: 3),
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        PostSingle post = _postList[index];
-                                        // log("Masul");
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ViewPostScreen(
-                                                          func: refresh,
-                                                          id: post.id,
-                                                        ))).then((value) {
-                                              setState(() {
-                                                refresh();
+                                  child: NotificationListener<
+                                      OverscrollIndicatorNotification>(
+                                    onNotification:
+                                        (OverscrollIndicatorNotification
+                                            overscroll) {
+                                      overscroll.disallowGlow();
+                                      return;
+                                    },
+                                    child: GridView.builder(
+                                        itemCount: _postList.length,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                mainAxisSpacing: 5,
+                                                crossAxisSpacing: 5,
+                                                crossAxisCount: 3),
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          PostSingle post = _postList[index];
+                                          // log("Masul");
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ViewPostScreen(
+                                                            func: refresh,
+                                                            id: post.id,
+                                                          ))).then((value) {
+                                                setState(() {
+                                                  refresh();
+                                                });
                                               });
-                                            });
 
-                                            log(post.id.toString());
-                                          },
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            child: CachedNetworkImage(
-                                              fit: BoxFit.cover,
-                                              imageUrl:
-                                                  baseURLMobile + post.image,
-                                              placeholder: (context, url) =>
-                                                  SpinKitFadingCube(
-                                                size: 30,
-                                                color: Colors.white
-                                                    .withOpacity(0.8),
+                                              log(post.id.toString());
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl:
+                                                    baseURLMobile + post.image,
+                                                placeholder: (context, url) =>
+                                                    SpinKitFadingCube(
+                                                  size: 30,
+                                                  color: Colors.white
+                                                      .withOpacity(0.8),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
                                             ),
-                                          ),
-                                        );
-                                      }),
+                                          );
+                                        }),
+                                  ),
                                 ),
                               ),
                       )),
