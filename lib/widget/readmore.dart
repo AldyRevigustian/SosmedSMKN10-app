@@ -34,22 +34,16 @@ class _ReadmoreState extends State<Readmore> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 5, left: 15, bottom: 15, right: 20),
-      // child: formatText(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             child: secondHalf.isEmpty
                 ? Padding(
                     padding: const EdgeInsets.only(bottom: 0),
-                    // child: new Text("@" + widget.user + " " + firstHalf,
-                    //     style: TextStyle(fontSize: 15)),
                     child: RichText(
                         text: TextSpan(
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black), //apply style to all
+                            style: TextStyle(fontSize: 14, color: Colors.black),
                             children: [
                           TextSpan(
                               text: "@" + widget.user + " ",
@@ -63,8 +57,7 @@ class _ReadmoreState extends State<Readmore> {
                           ? RichText(
                               text: TextSpan(
                                   style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.black), //apply style to all
+                                      fontSize: 14, color: Colors.black),
                                   children: [
                                   TextSpan(
                                       text: "@" + widget.user + " ",
@@ -84,9 +77,6 @@ class _ReadmoreState extends State<Readmore> {
                                           fontWeight: FontWeight.bold)),
                                   TextSpan(text: firstHalf + secondHalf),
                                 ])),
-                      // ? ("@" + widget.user + " " + firstHalf + "...")
-                      // : ("@" + widget.user + " " + firstHalf + secondHalf),
-
                       new InkWell(
                         child: new Row(
                           mainAxisAlignment: MainAxisAlignment.end,

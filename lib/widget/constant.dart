@@ -3,31 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:numeral/fun.dart';
 
-// const baseURL = 'http://your-Ip:8000/api';
-
-// Sekolah
-// const baseURL = 'http://192.168.36.218:8000/api';
-// const baseURLMobile = 'http://192.168.36.218:8000';
-
-// const baseURL = 'http://192.168.0.112:8000/api';
-// const baseURLMobile = 'http://192.168.0.112:8000';
-
-// Rumah
-// const baseURL = 'http://192.168.0.11:8000/api';
-// const baseURLMobile = 'http://192.168.0.11:8000';
-
-// const baseURL = 'http://192.168.0.119:8000/api';
-// const baseURLMobile = 'http://192.168.0.119:8000';
-
-const baseURL = 'http://192.168.0.119:8000/api';
-const baseURLMobile = 'http://192.168.0.119:8000';
-
-// Rumah
-// const baseURL = 'http://192.168.0.191:8000/api';
-// const baseURLMobile = 'http://192.168.0.191:8000';
-
-// const baseURL = 'http://10.0.2.2:8000/api';
-// const baseURLMobile = 'http://10.0.2.2:8000';
+const baseURL = 'http://10.10.18.31:8000/api';
+const baseURLMobile = 'http://10.10.18.31:8000';
 
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
@@ -112,16 +89,6 @@ kLikeAndComment(IconData icon, Color color, Function onTap) {
                 size: 30,
                 color: color,
               ),
-              // Text(
-              //   numeral(value ?? 0),
-              //   // intl.NumberFormat.decimalPattern().format(100000),
-              //   style: TextStyle(
-              //       fontWeight: FontWeight.w600, color: Colors.black54),
-              // )
-              // Text(
-              //   '$value',
-              //   style: TextStyle(fontWeight: FontWeight.w600),
-              // )
             ],
           ),
         ),
@@ -155,10 +122,6 @@ kComment(IconData icon, Color color, Function onTap, value) {
               SizedBox(
                 width: 8,
               ),
-              // Text(
-              //   '$value',
-              //   style: TextStyle(fontWeight: FontWeight.w600, fontSize: ),
-              // )
             ],
           ),
         ),

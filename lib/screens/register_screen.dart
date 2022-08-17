@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -27,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   FocusNode node = new FocusNode();
 
   bool _isObscure = true;
-
+  bool isDoubleTap = false;
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool loading = false;
   TextEditingController nameController = TextEditingController(),
@@ -149,30 +150,119 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 30,
                   ),
-                  CircleAvatar(
-                    radius: 80,
-                    backgroundImage: _imageFile == null
-                        ? AssetImage("assets/images/user0.png")
-                        : FileImage(_imageFile ?? File('')),
-                    child: Stack(children: [
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            getImage();
-                          },
-                          child: CircleAvatar(
-                            radius: 18,
-                            backgroundColor:
-                                CustColors.primaryBlue.withOpacity(1),
-                            child: Icon(
-                              Icons.camera,
-                              color: Colors.white,
+                  // CircleAvatar(
+                  //   radius: 110,
+                  //   backgroundImage: _imageFile == null
+                  //       ? AssetImage("assets/images/user0.png")
+                  //       : FileImage(_imageFile ?? File('')),
+                  //   child: Stack(children: [
+                  //     Align(
+                  //       alignment: Alignment.bottomRight,
+                  //       child: GestureDetector(
+                  //         onTap: () {
+                  //           getImage();
+                  //         },
+                  //         child: CircleAvatar(
+                  //           radius: 18,
+                  //           backgroundColor:
+                  //               CustColors.primaryBlue.withOpacity(1),
+                  //           child: Icon(
+                  //             Icons.camera,
+                  //             color: Colors.white,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ]),
+                  // ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isDoubleTap = !isDoubleTap;
+                      });
+                    },
+                    // onTap: () {
+                    //   getImage();
+                    // },
+                    child: CircleAvatar(
+                      radius: 100,
+                      child: isDoubleTap
+                          ? ClipOval(
+                              child: _imageFile == null
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isDoubleTap = !isDoubleTap;
+                                        });
+                                        getImage();
+                                      },
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Image.asset(
+                                            'assets/images/user0.png',
+                                            fit: BoxFit.cover,
+                                            width: 250,
+                                            height: 250,
+                                            color:
+                                                Colors.black.withOpacity(0.6),
+                                            colorBlendMode: BlendMode.darken,
+                                          ),
+                                          Icon(
+                                            Icons.add_photo_alternate,
+                                            color:
+                                                Colors.white.withOpacity(0.7),
+                                            size: 60,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () {
+                                        getImage();
+                                        setState(() {
+                                          isDoubleTap = !isDoubleTap;
+                                        });
+                                      },
+                                      // _imageFile ?? File('')
+                                      child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Image.file(
+                                            _imageFile ?? File(''),
+                                            fit: BoxFit.cover,
+                                            width: 250,
+                                            height: 250,
+                                            color:
+                                                Colors.black.withOpacity(0.6),
+                                            colorBlendMode: BlendMode.darken,
+                                          ),
+                                          Icon(
+                                            Icons.add_photo_alternate,
+                                            color:
+                                                Colors.white.withOpacity(0.7),
+                                            size: 60,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                            )
+                          : ClipOval(
+                              child: _imageFile == null
+                                  ? Image.asset(
+                                      'assets/images/user0.png',
+                                      fit: BoxFit.cover,
+                                      width: 250,
+                                      height: 250,
+                                    )
+                                  : Image.file(
+                                      _imageFile ?? File(''),
+                                      fit: BoxFit.cover,
+                                      width: 250,
+                                      height: 250,
+                                    ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ]),
+                    ),
                   ),
                   SizedBox(
                     height: 60,
@@ -291,26 +381,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  // TextFormField(
-                  //   controller: emailController,
-                  //   keyboardType: TextInputType.emailAddress,
-                  //   validator: (value) {
-                  //     if (value.isEmpty ||
-                  //         !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                  //             .hasMatch(value)) {
-                  //       //allow upper and lower case alphabets and space
-                  //       return "Enter Correct Email";
-                  //     } else {
-                  //       return null;
-                  //     }
-                  //   },
-                  //   decoration: InputDecoration(
-                  //     hintText: "Email",
-                  //     prefixIcon: Padding(
-                  //         padding: EdgeInsets.only(right: 10),
-                  //         child: Icon(Icons.email)),
-                  //   ),
-                  // ),
                   TextFormField(
                     controller: emailController,
                     validator: (value) {
@@ -351,35 +421,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  // TextFormField(
-                  //   controller: passwordController,
-                  //   validator: (val) =>
-                  //       val.length < 6 ? 'Required at least 6 chars' : null,
-                  //   obscureText: _isObscure,
-                  //   decoration: InputDecoration(
-                  //     suffixIcon: IconButton(
-                  //       icon: _isObscure
-                  //           ? Icon(
-                  //               Icons.visibility,
-                  //               color: Colors.black54,
-                  //             )
-                  //           : Icon(
-                  //               Icons.visibility_off,
-                  //               color: Colors.black54,
-                  //             ),
-                  //       onPressed: () {
-                  //         setState(() {
-                  //           _isObscure = !_isObscure;
-                  //         });
-                  //       },
-                  //     ),
-                  //     hintText: "Password",
-                  //     prefixIcon: Padding(
-                  //         padding: EdgeInsets.only(right: 10),
-                  //         child: Icon(Icons.vpn_key_sharp)),
-                  //   ),
-                  // ),
-
                   TextFormField(
                     obscureText: _isObscure,
                     controller: passwordController,

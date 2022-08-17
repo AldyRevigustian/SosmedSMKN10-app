@@ -4,7 +4,6 @@ import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/screens/main/home_screen.dart';
 import 'package:smkn10sosmed/screens/main/post_screen.dart';
 import 'package:smkn10sosmed/screens/main/profile.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Navbar extends StatefulWidget {
   @override

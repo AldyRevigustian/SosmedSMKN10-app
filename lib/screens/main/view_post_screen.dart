@@ -114,7 +114,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
           title: Padding(
             padding: EdgeInsets.only(top: 5),
             child: Text(
-              "Profile",
+              "Post",
               style: TextStyle(color: Colors.black, fontSize: 25),
             ),
           ),
@@ -157,6 +157,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
               )
             : Center(
                 child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
                     primary: false,
                     shrinkWrap: true,
                     itemCount: _postList.length,

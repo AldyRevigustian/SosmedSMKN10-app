@@ -11,7 +11,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/screens/main/add_post.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class PostScreen extends StatefulWidget {
   @override

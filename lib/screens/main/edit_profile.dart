@@ -33,7 +33,7 @@ class _EditProfileState extends State<EditProfile> {
   bool loading = true;
   TextEditingController usernameController = TextEditingController();
   TextEditingController fullnameController = TextEditingController();
-
+  bool isDoubleTap = false;
   File _imageFile;
   final _picker = ImagePicker();
 
@@ -274,38 +274,111 @@ class _EditProfileState extends State<EditProfile> {
                             // ),
                             GestureDetector(
                               onTap: () {
-                                getImage();
+                                setState(() {
+                                  isDoubleTap = !isDoubleTap;
+                                });
                               },
+                              // onTap: () {
+                              //   getImage();
+                              // },
                               child: CircleAvatar(
                                 radius: 110,
-                                child: Stack(
-                                  children: [
-                                    ClipOval(
-                                      child: _imageFile != null
-                                          ? Image.file(
-                                              _imageFile,
-                                              fit: BoxFit.cover,
-                                              width: 250,
-                                              height: 250,
-                                            )
-                                          : CachedNetworkImage(
-                                              fit: BoxFit.cover,
-                                              width: 250,
-                                              height: 250,
-                                              imageUrl:
-                                                  baseURLMobile + user.image,
-                                              placeholder: (context, url) =>
-                                                  Center(
-                                                child: Image.asset(
-                                                    'assets/images/user0.png'),
+                                child: isDoubleTap
+                                    ? ClipOval(
+                                        child: _imageFile != null
+                                            ? GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    isDoubleTap = !isDoubleTap;
+                                                  });
+                                                  getImage();
+                                                },
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    Image.file(
+                                                      _imageFile,
+                                                      fit: BoxFit.cover,
+                                                      width: 250,
+                                                      height: 250,
+                                                      color: Colors.black
+                                                          .withOpacity(0.6),
+                                                      colorBlendMode:
+                                                          BlendMode.darken,
+                                                    ),
+                                                    Icon(
+                                                      Icons.add_photo_alternate,
+                                                      color: Colors.white
+                                                          .withOpacity(0.7),
+                                                      size: 60,
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            : GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    isDoubleTap = !isDoubleTap;
+                                                  });
+                                                  getImage();
+                                                },
+                                                child: Stack(
+                                                  alignment: Alignment.center,
+                                                  children: [
+                                                    CachedNetworkImage(
+                                                      color: Colors.black
+                                                          .withOpacity(0.6),
+                                                      colorBlendMode:
+                                                          BlendMode.darken,
+                                                      fit: BoxFit.cover,
+                                                      width: 250,
+                                                      height: 250,
+                                                      imageUrl: baseURLMobile +
+                                                          user.image,
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              Center(
+                                                        child: Image.asset(
+                                                            'assets/images/user0.png'),
+                                                      ),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Icon(Icons.error),
+                                                    ),
+                                                    Icon(
+                                                      Icons.add_photo_alternate,
+                                                      color: Colors.white
+                                                          .withOpacity(0.7),
+                                                      size: 60,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Icon(Icons.error),
-                                            ),
-                                    ),
-                                  ],
-                                ),
+                                      )
+                                    : ClipOval(
+                                        child: _imageFile != null
+                                            ? Image.file(
+                                                _imageFile,
+                                                fit: BoxFit.cover,
+                                                width: 250,
+                                                height: 250,
+                                              )
+                                            : CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                width: 250,
+                                                height: 250,
+                                                imageUrl:
+                                                    baseURLMobile + user.image,
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                  child: Image.asset(
+                                                      'assets/images/user0.png'),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
+                                              ),
+                                      ),
                               ),
                             ),
                             SizedBox(

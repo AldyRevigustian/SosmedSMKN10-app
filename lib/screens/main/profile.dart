@@ -234,34 +234,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             Icon(Icons.error),
                                       ),
                                     ),
-                                    // Align(
-                                    //   alignment: Alignment.bottomRight,
-                                    //   child: GestureDetector(
-                                    //     onTap: () {
-                                    //       Navigator.push(
-                                    //           context,
-                                    //           MaterialPageRoute(
-                                    //               builder: (context) =>
-                                    //                   EditProfile(
-                                    //                       // func: refresh,
-                                    //                       ))).then((value) {
-                                    //         setState(() {
-                                    //           refresh();
-                                    //         });
-                                    //       });
-                                    //       // Navigator.pop(context);
-                                    //     },
-                                    //     // child: CircleAvatar(
-                                    //     //   radius: 18,
-                                    //     //   backgroundColor: Colors.white,
-                                    //     //   child: Icon(
-                                    //     //     Icons.edit,
-                                    //     //     size: 18,
-                                    //     //     color: Colors.black,
-                                    //     //   ),
-                                    //     // ),
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),

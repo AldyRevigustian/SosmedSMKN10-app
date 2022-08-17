@@ -28,7 +28,6 @@ class TextFieldInput extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: CustColors.primaryWhite,
         hintText: hintText,
-        // hintStyle: TextStyle(color: Colors.black.withOpacity(0.3)),
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(color: CustColors.primaryWhite)),
