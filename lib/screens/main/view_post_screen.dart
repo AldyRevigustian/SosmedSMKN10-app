@@ -278,7 +278,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                           ),
                                           child: ClipRRect(
                                             child: CachedNetworkImage(
-                                              fit: BoxFit.contain,
+                                              fit: BoxFit.cover,
                                               imageUrl:
                                                   baseURLMobile + post.image,
                                               placeholder: (context, url) =>

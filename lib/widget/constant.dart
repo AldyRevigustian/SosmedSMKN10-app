@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:numeral/fun.dart';
 
-const baseURL = 'http://10.10.18.31:8000/api';
-const baseURLMobile = 'http://10.10.18.31:8000';
+const baseURL = 'http://192.168.0.106:8000/api';
+const baseURLMobile = 'http://192.168.0.106:8000';
 
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
@@ -23,7 +23,6 @@ class CustColors {
   static Color primaryBlue = Colors.blue[700];
   static Color primaryGreen = Colors.green[700];
   static Color primaryRed = Colors.red[700];
-  // static const Color primaryBlue = Color.fromRGBO(0, 149, 246, 1);
 }
 
 // --- input decoration
