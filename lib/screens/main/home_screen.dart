@@ -214,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           padding:
                                               const EdgeInsets.only(top: 20),
                                           child: Text(
-                                            "No Post Available",
+                                            "Please Wait",
                                             style: TextStyle(
                                                 color: Colors.black
                                                     .withOpacity(0.2),

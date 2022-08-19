@@ -224,7 +224,7 @@ class _CommentScreenState extends State<CommentScreen> {
                                                   width: 10,
                                                 ),
                                                 Text(
-                                                  '@${comment.user.name}',
+                                                  '${comment.user.name}',
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.w600,
