@@ -126,7 +126,6 @@ Future<ApiResponse> updateUser(
         apiResponse.error = unauthorized;
         break;
       default:
-        print(response.body);
         apiResponse.error = somethingWentWrong;
         break;
     }

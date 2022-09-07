@@ -14,7 +14,6 @@ import 'package:smkn10sosmed/widget/textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key key}) : super(key: key);
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -36,9 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
         loading = false;
       });
       Navigator.pop(context);
-      // Navigator.of(context).pushAndRemoveUntil(
-      //     MaterialPageRoute(builder: (context) => LoginScreen()),
-      //     (route) => false);
       kErrorSnackbar(context, '${response.error}');
     }
   }

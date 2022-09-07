@@ -70,7 +70,6 @@ class _AddPostState extends State<AddPost> {
 
   @override
   void initState() {
-    log(widget.image.toString());
     super.initState();
   }
 
@@ -150,7 +149,6 @@ class _AddPostState extends State<AddPost> {
                         // color: Color(0xFF23B66F),
                         color: CustColors.primaryBlue.withOpacity(0.9),
                         onPressed: () {},
-                        // onPressed: () => print('Upload Photo'),
                         child: Icon(
                           Icons.add_box_rounded,
                           size: 35.0,

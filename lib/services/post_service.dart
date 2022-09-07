@@ -57,7 +57,6 @@ Future<ApiResponse> getPostsPeruserId(int userId) async {
             .toList();
         // we get list of posts, so we need to map each item to post model
         apiResponse.data as List<dynamic>;
-        log(apiResponse.data.toString());
         break;
       case 401:
         apiResponse.error = unauthorized;
@@ -89,7 +88,6 @@ Future<ApiResponse> getPostsPerId(String id) async {
             .toList();
         // we get list of posts, so we need to map each item to post model
         apiResponse.data as List<dynamic>;
-        log(apiResponse.data.toString());
         break;
       case 401:
         apiResponse.error = unauthorized;
@@ -130,7 +128,6 @@ Future<ApiResponse> createPost(String body, String image) async {
         apiResponse.error = unauthorized;
         break;
       default:
-        print(response.body);
         apiResponse.error = somethingWentWrong;
         break;
     }
@@ -214,6 +211,32 @@ Future<ApiResponse> likeUnlikePost(int postId) async {
           'Authorization': 'Bearer $token'
         });
 
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
+Future<ApiResponse> likePost(int postId) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse('$postsURL/$postId/likesOnly'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        });
     switch (response.statusCode) {
       case 200:
         apiResponse.data = jsonDecode(response.body)['message'];

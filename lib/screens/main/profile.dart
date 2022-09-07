@@ -352,8 +352,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   refresh();
                                                 });
                                               });
-
-                                              log(post.id.toString());
                                             },
                                             child: ClipRRect(
                                               borderRadius:

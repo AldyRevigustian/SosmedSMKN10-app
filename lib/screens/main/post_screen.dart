@@ -44,8 +44,6 @@ class _PostScreenState extends State<PostScreen> {
         imageFile = File(image.path);
         picked = imageFile.readAsBytesSync();
       });
-      // print(imageData);
-      print(imageFile);
       return imageFile;
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
@@ -101,12 +99,10 @@ class _PostScreenState extends State<PostScreen> {
 //load the album list
       List<AssetPathEntity> albums =
           await PhotoManager.getAssetPathList(onlyAll: true);
-      print(albums);
       List<AssetEntity> media =
           await albums[0].getAssetListPaged(currentPage, 18);
       // List<AssetEntity> media =
       //     await albums[0].getAssetListPaged(currentPage, 15);
-      print(media);
       List<Widget> temp = [];
       for (var asset in media) {
         if (asset.type == AssetType.image) {

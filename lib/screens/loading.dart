@@ -32,6 +32,9 @@ class _LoadingState extends State<Loading> {
             MaterialPageRoute(builder: (context) => LoginScreen()),
             (route) => false);
       } else {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+            (route) => false);
         kErrorSnackbar(context, '${response.error}');
       }
     }

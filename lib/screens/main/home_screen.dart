@@ -26,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isHeartAnimated = false;
   // final fifteenAgo = DateTime.now().subtract(Duration(minutes: 15));
   User user;
 
@@ -66,6 +67,22 @@ class _HomeScreenState extends State<HomeScreen> {
   _handlePostLikeDislike(int postId) async {
     ApiResponse response = await likeUnlikePost(postId);
 
+    if (response.error == null) {
+      retrievePosts();
+      return true;
+    } else if (response.error == unauthorized) {
+      logout().then((value) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (route) => false)
+          });
+    } else {
+      kErrorSnackbar(context, '${response.error}');
+    }
+  }
+
+  _handlePostLike(int postId) async {
+    ApiResponse response = await likePost(postId);
     if (response.error == null) {
       retrievePosts();
       return true;
@@ -201,15 +218,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        // SpinKitFadingCube(
-                                        //   size: 30,
-                                        //   color: Colors.black.withOpacity(0.2),
-                                        // ),
-                                        // Icon(
-                                        //   Icons.error,
-                                        //   size: 40,
-                                        //   color: Colors.black.withOpacity(0.2),
-                                        // ),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(top: 20),
@@ -330,14 +338,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 .toString(),
                                                           ),
                                                         ),
-                                                        InkWell(
-                                                          // onDoubleTap: () {
-                                                          //   // setState(() {
-                                                          //   //   post.selfLiked = true;
-                                                          //   // });
-                                                          //   _handlePostLikeDislike(
-                                                          //       post.id);
-                                                          // },
+                                                        GestureDetector(
+                                                          onDoubleTap: () {
+                                                            setState(() {
+                                                              post.selfLiked =
+                                                                  true;
+                                                            });
+                                                            _handlePostLike(
+                                                                post.id);
+                                                          },
                                                           // onTap: () {
                                                           //   _handlePostLikeDislike(
                                                           //       post.id);
@@ -444,6 +453,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                                 5),
                                                                         child:
                                                                             GestureDetector(
+                                                                          onDoubleTap:
+                                                                              () {
+                                                                            log("OKE");
+                                                                          },
                                                                           child:
                                                                               LikeButton(
                                                                             onTap:
@@ -632,15 +645,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           .toString(),
                                                     ),
                                                   ),
-                                                  InkWell(
-                                                    // onDoubleTap: () {
-                                                    //   setState(() {
-                                                    //     post.selfLiked = true;
-                                                    //   });
-                                                    //   _handlePostLikeDislike(
-                                                    //       post.id);
+                                                  GestureDetector(
+                                                    onDoubleTap: () {
+                                                      setState(() {
+                                                        post.selfLiked = true;
+                                                      });
+                                                      _handlePostLike(post.id);
+                                                    },
+                                                    // onTap: () {
+                                                    //   print("OKE");
                                                     // },
-                                                    onTap: () {},
                                                     child: Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -738,6 +752,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       top: 5),
                                                                   child:
                                                                       GestureDetector(
+                                                                    onDoubleTap:
+                                                                        () {
+                                                                      log("POKE");
+                                                                    },
                                                                     child:
                                                                         LikeButton(
                                                                       onTap:

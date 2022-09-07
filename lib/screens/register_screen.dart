@@ -481,7 +481,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   MaterialButton(
                     onPressed: () {
-                      log("Oke");
                       if (formKey.currentState.validate()) {
                         if (_imageFile != null) {
                           setState(() {
