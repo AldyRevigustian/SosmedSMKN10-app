@@ -4,7 +4,7 @@ import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/search.dart';
 import 'package:smkn10sosmed/models/user.dart';
 import 'package:smkn10sosmed/screens/login_screen.dart';
-import 'package:smkn10sosmed/screens/main/detail_search.dart';
+import 'package:smkn10sosmed/screens/main/search/detail_search.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 

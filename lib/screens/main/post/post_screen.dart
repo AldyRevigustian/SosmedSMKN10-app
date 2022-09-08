@@ -8,8 +8,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:smkn10sosmed/screens/main/post/add_post.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
-import 'package:smkn10sosmed/screens/main/add_post.dart';
+import 'package:smkn10sosmed/screens/main/post/add_post.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 class PostScreen extends StatefulWidget {

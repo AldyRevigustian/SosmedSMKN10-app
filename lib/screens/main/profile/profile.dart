@@ -7,39 +7,35 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smkn10sosmed/models/search.dart';
 import 'package:smkn10sosmed/screens/loading.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/post.dart';
 import 'package:smkn10sosmed/models/post_single.dart';
 import 'package:smkn10sosmed/models/user.dart';
 import 'package:smkn10sosmed/screens/login_screen.dart';
-import 'package:smkn10sosmed/screens/main/edit_profile.dart';
-import 'package:smkn10sosmed/screens/main/view_post_screen.dart';
-import 'package:smkn10sosmed/screens/main/view_search_post.dart';
+import 'package:smkn10sosmed/screens/main/profile/edit_profile.dart';
+import 'package:smkn10sosmed/screens/main/profile/view_post_screen.dart';
 import 'package:smkn10sosmed/services/post_service.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
 
-import '../../widget/constant.dart';
+import '../../../widget/constant.dart';
 
-class DetailSearch extends StatefulWidget {
-  final int id;
-
-  const DetailSearch({Key key, this.id}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
   @override
-  State<DetailSearch> createState() => _DetailSearchState();
+  State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _DetailSearchState extends State<DetailSearch> {
-  List<dynamic> user;
+class _ProfileScreenState extends State<ProfileScreen> {
+  User user;
   bool loading = true;
   List<dynamic> _postList = [];
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController txtNameController = TextEditingController();
 
   Future<void> retrievePostsPerId() async {
-    int userId = widget.id;
+    int userId = await getUserId();
     ApiResponse response = await getPostsPeruserId(userId);
+
     if (response.error == null) {
       setState(() {
         _postList = response.data as List<dynamic>;
@@ -57,16 +53,14 @@ class _DetailSearchState extends State<DetailSearch> {
   }
 
   // get user detail
-  void getUserPerId() async {
-    int userId = widget.id;
-    ApiResponse response = await getUserDetailId(userId);
+  void getUser() async {
+    ApiResponse response = await getUserDetail();
     if (response.error == null) {
       setState(() {
-        user = response.data as List<dynamic>;
+        user = response.data as User;
         loading = false;
-        // txtNameController.text = user.name ?? '';
+        txtNameController.text = user.name ?? '';
       });
-      // log(user.toString());
     } else if (response.error == unauthorized) {
       logout().then((value) => {
             Navigator.of(context).pushAndRemoveUntil(
@@ -79,14 +73,14 @@ class _DetailSearchState extends State<DetailSearch> {
   }
 
   void refresh() {
-    getUserPerId();
+    getUser();
     retrievePostsPerId();
     setState(() {});
   }
 
   @override
   void initState() {
-    getUserPerId();
+    getUser();
     retrievePostsPerId();
     super.initState();
   }
@@ -109,16 +103,48 @@ class _DetailSearchState extends State<DetailSearch> {
               ),
             ),
             centerTitle: true,
+            actions: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => EditProfile(
+                              // func: refresh,
+                              ))).then((value) {
+                    setState(() {
+                      refresh();
+                    });
+                  });
+                  // Navigator.pop(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Icon(
+                    // FluentIcons.sign_out_20_filled,
+                    Icons.edit,
+                    color: Colors.black,
+                    size: 23,
+                  ),
+                ),
+              )
+            ],
             leading: InkWell(
               onTap: () {
-                Navigator.pop(context);
+                logout().then((value) => {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                          (route) => false)
+                    });
               },
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Icon(
-                  Icons.arrow_back_ios_rounded,
+                  // FluentIcons.sign_out_20_filled,
+                  Icons.logout,
                   color: Colors.black,
-                  size: 20,
+                  size: 23,
                 ),
               ),
             )),
@@ -151,7 +177,7 @@ class _DetailSearchState extends State<DetailSearch> {
                       fit: BoxFit.cover,
                       width: 160,
                       height: 160,
-                      imageUrl: baseURLMobile + user[0].image,
+                      imageUrl: baseURLMobile + user.image,
                       placeholder: (context, url) => Center(
                         child: Image.asset('assets/images/user0.png'),
                       ),
@@ -176,6 +202,8 @@ class _DetailSearchState extends State<DetailSearch> {
                     ),
                   ),
                   Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         height: height / 2.5,
@@ -185,6 +213,9 @@ class _DetailSearchState extends State<DetailSearch> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              // SizedBox(
+                              //   height: 30,
+                              // ),
                               CircleAvatar(
                                 radius: 80,
                                 child: Stack(
@@ -194,7 +225,7 @@ class _DetailSearchState extends State<DetailSearch> {
                                         fit: BoxFit.cover,
                                         width: 200,
                                         height: 200,
-                                        imageUrl: baseURLMobile + user[0].image,
+                                        imageUrl: baseURLMobile + user.image,
                                         placeholder: (context, url) => Center(
                                           child: Image.asset(
                                               'assets/images/user0.png'),
@@ -226,7 +257,7 @@ class _DetailSearchState extends State<DetailSearch> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          user[0].fullname,
+                                          user.fullname,
                                           // "koaskdosakdoas okasodksaod okoaskdoaskd kasodkasodk",
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.center,
@@ -237,7 +268,7 @@ class _DetailSearchState extends State<DetailSearch> {
                                                   Colors.black.withOpacity(1)),
                                         ),
                                         Text(
-                                          "@" + user[0].name,
+                                          "@" + user.name,
                                           // "koaskdosakdoas okasodksaod okoaskdoaskd kasodkasodk",
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.center,
@@ -313,7 +344,7 @@ class _DetailSearchState extends State<DetailSearch> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          ViewSearchPost(
+                                                          ViewPostScreen(
                                                             func: refresh,
                                                             id: post.id,
                                                           ))).then((value) {

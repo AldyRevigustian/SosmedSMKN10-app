@@ -8,7 +8,7 @@ import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/search.dart';
 import 'package:smkn10sosmed/models/user.dart';
 import "package:shared_preferences/shared_preferences.dart";
-import 'package:smkn10sosmed/screens/main/search.dart';
+import 'package:smkn10sosmed/screens/main/search/search.dart';
 
 import '../widget/constant.dart';
 

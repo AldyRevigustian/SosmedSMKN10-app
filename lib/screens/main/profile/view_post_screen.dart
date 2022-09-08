@@ -9,7 +9,7 @@ import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/post.dart';
 import 'package:smkn10sosmed/screens/login_screen.dart';
-import 'package:smkn10sosmed/screens/main/comment.dart';
+import 'package:smkn10sosmed/screens/main/post/comment.dart';
 import 'package:smkn10sosmed/screens/main/navbar.dart';
 import 'package:smkn10sosmed/services/post_service.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
