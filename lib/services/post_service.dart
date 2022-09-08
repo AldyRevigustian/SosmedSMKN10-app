@@ -3,8 +3,10 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/image_story.dart';
 import 'package:smkn10sosmed/models/post.dart';
 import 'package:smkn10sosmed/models/post_single.dart';
+import 'package:smkn10sosmed/models/stories.dart';
 import 'package:smkn10sosmed/services/user_service.dart';
 
 import '../widget/constant.dart';
@@ -25,7 +27,70 @@ Future<ApiResponse> getPosts() async {
             .toList();
         // we get list of posts, so we need to map each item to post model
         apiResponse.data as List<dynamic>;
-        print(apiResponse.data);
+        // print(apiResponse.data);
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
+Future<ApiResponse> getStories() async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.get(Uri.parse(storiesURL), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    });
+    // print(jsonDecode(response.body)['stories']);
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['stories']
+            .map((p) => Story.fromJson(p))
+            .toList();
+        // we get list of posts, so we need to map each item to post model
+        apiResponse.data as List<dynamic>;
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
+Future<ApiResponse> getStoryImage(id) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse(storiesImageURL), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    }, body: {
+      'user_id': id.toString()
+    });
+    // print(response.body);
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['stories']
+            .map((p) => ImageStory.fromJson(p))
+            .toList();
+        // we get list of posts, so we need to map each item to post model
+        apiResponse.data as List<dynamic>;
+        // print(apiResponse.data);
         break;
       case 401:
         apiResponse.error = unauthorized;
@@ -113,6 +178,41 @@ Future<ApiResponse> createPost(String body, String image) async {
           'Authorization': 'Bearer $token'
         },
         body: image != null ? {'body': body, 'image': image} : {'body': body});
+
+    // here if the image is null we just send the body, if not null we send the image too
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body);
+        break;
+      case 422:
+        final errors = jsonDecode(response.body)['errors'];
+        apiResponse.error = errors[errors.keys.elementAt(0)][0];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
+Future<ApiResponse> createStory(String id, String image) async {
+  ApiResponse apiResponse = ApiResponse();
+
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse(storiesURL), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    }, body: {
+      'image': image
+    });
 
     // here if the image is null we just send the body, if not null we send the image too
 
