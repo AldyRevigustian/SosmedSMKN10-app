@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:smkn10sosmed/models/api_response.dart';
+import 'package:smkn10sosmed/models/search.dart';
 import 'package:smkn10sosmed/models/user.dart';
 import "package:shared_preferences/shared_preferences.dart";
+import 'package:smkn10sosmed/screens/main/search.dart';
 
 import '../widget/constant.dart';
 
@@ -99,6 +102,41 @@ Future<ApiResponse> getUserDetail() async {
   return apiResponse;
 }
 
+// User
+Future<ApiResponse> getUserDetailId(int id) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse(userIdURL), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    }, body: {
+      'id': id.toString()
+    });
+
+    // log(response.body);
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['user']
+            .map((p) => SearchModel.fromJson(p))
+            .toList();
+        apiResponse.data as List<dynamic>;
+        print(apiResponse.data);
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
 // Update user
 Future<ApiResponse> updateUser(
     String username, String image, String fullname) async {
@@ -121,6 +159,39 @@ Future<ApiResponse> updateUser(
     switch (response.statusCode) {
       case 200:
         apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
+Future<ApiResponse> searchUser(String search) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse(searchURL), headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token'
+    }, body: {
+      'name': search
+    });
+    print(search);
+    // print(response.body);
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['user']
+            .map((p) => SearchModel.fromJson(p))
+            .toList();
+        apiResponse.data as List<dynamic>;
+        print(apiResponse.data);
         break;
       case 401:
         apiResponse.error = unauthorized;

@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:numeral/fun.dart';
 
-const baseURL = 'http://192.168.0.110:8000/api';
-const baseURLMobile = 'http://192.168.0.110:8000';
+const baseURL = 'http://192.168.0.191:8000/api';
+const baseURLMobile = 'http://192.168.0.191:8000';
 
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
+const searchURL = baseURL + '/search';
 const logoutURL = baseURL + '/logout';
 const userURL = baseURL + '/user';
+const userIdURL = baseURL + '/userId';
 const postsURL = baseURL + '/posts';
 const commentsURL = baseURL + '/comments';
 

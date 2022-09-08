@@ -5,6 +5,7 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:smkn10sosmed/screens/main/search.dart';
 import 'package:smkn10sosmed/widget/constant.dart';
 import 'package:smkn10sosmed/models/api_response.dart';
 import 'package:smkn10sosmed/models/post.dart';
@@ -173,22 +174,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        CircleAvatar(
-                          radius: 17,
-                          child: ClipOval(
-                            child: CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              width: 160,
-                              height: 160,
-                              imageUrl: baseURLMobile + user.image,
-                              placeholder: (context, url) => Center(
-                                // child: Image.asset('assets/images/user0.png'),
-                                child: Container(
-                                  color: Colors.white,
-                                ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => Search(),
                               ),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                            );
+                          },
+                          child: CircleAvatar(
+                            radius: 17,
+                            child: ClipOval(
+                              child: CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                width: 160,
+                                height: 160,
+                                imageUrl: baseURLMobile + user.image,
+                                placeholder: (context, url) => Center(
+                                  // child: Image.asset('assets/images/user0.png'),
+                                  child: Container(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                             ),
                           ),
                         ),

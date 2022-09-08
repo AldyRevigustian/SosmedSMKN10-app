@@ -18,7 +18,6 @@ Future<ApiResponse> getPosts() async {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     });
-
     switch (response.statusCode) {
       case 200:
         apiResponse.data = jsonDecode(response.body)['posts']
@@ -26,6 +25,7 @@ Future<ApiResponse> getPosts() async {
             .toList();
         // we get list of posts, so we need to map each item to post model
         apiResponse.data as List<dynamic>;
+        print(apiResponse.data);
         break;
       case 401:
         apiResponse.error = unauthorized;

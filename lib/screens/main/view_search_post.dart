@@ -19,8 +19,8 @@ import 'package:numeral/fun.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:intl/intl.dart' as intl;
 
-class ViewPostScreen extends StatefulWidget {
-  const ViewPostScreen({
+class ViewSearchPost extends StatefulWidget {
+  const ViewSearchPost({
     Key key,
     this.id,
     this.func,
@@ -29,10 +29,10 @@ class ViewPostScreen extends StatefulWidget {
   final Function func;
 
   @override
-  _ViewPostScreenState createState() => _ViewPostScreenState();
+  _ViewSearchPostState createState() => _ViewSearchPostState();
 }
 
-class _ViewPostScreenState extends State<ViewPostScreen> {
+class _ViewSearchPostState extends State<ViewSearchPost> {
   List<dynamic> _postList = [];
 
   bool _loading = true;
@@ -176,31 +176,6 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                             child: Column(
                               children: <Widget>[
                                 ListTile(
-                                  trailing: PopupMenuButton(
-                                    child: Padding(
-                                        padding: EdgeInsets.only(right: 10),
-                                        child: Icon(
-                                          Icons.more_vert,
-                                          color: Colors.black.withOpacity(0.5),
-                                        )),
-                                    itemBuilder: (context) => [
-                                      PopupMenuItem(
-                                          child: Text('Delete'),
-                                          value: 'delete')
-                                    ],
-                                    onSelected: (val) {
-                                      // if (val == 'edit') {
-                                      //   setState(() {
-                                      //     _editCommentId =
-                                      //         comment.id ?? 0;
-                                      //     _txtCommentController.text =
-                                      //         comment.comment ?? '';
-                                      //   });
-                                      if (val == 'delete') {
-                                        _handleDeletePost(post.id ?? 0);
-                                      }
-                                    },
-                                  ),
                                   leading: Container(
                                     width: 50.0,
                                     height: 50.0,
