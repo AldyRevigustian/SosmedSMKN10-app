@@ -120,6 +120,24 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  _handleView(int story) async {
+    ApiResponse response = await viewedStory(story);
+
+    if (response.error == null) {
+      retrievePosts();
+      retrieveStories();
+      return true;
+    } else if (response.error == unauthorized) {
+      logout().then((value) => {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                (route) => false)
+          });
+    } else {
+      kErrorSnackbar(context, '${response.error}');
+    }
+  }
+
   _handlePostLike(int postId) async {
     ApiResponse response = await likePost(postId);
     if (response.error == null) {
@@ -347,117 +365,244 @@ class _HomeScreenState extends State<HomeScreen> {
                               : _postList.length == 1
                                   ? Column(
                                       children: [
-                                        _storyList.length == null
-                                            ? Center()
-                                            : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10,
-                                                    top: 10,
-                                                    bottom: 10),
-                                                child: Container(
-                                                    height: 100,
-                                                    child: ListView.builder(
-                                                        scrollDirection:
-                                                            Axis.horizontal,
-                                                        itemCount:
-                                                            _storyList.length,
-                                                        itemBuilder:
-                                                            (BuildContext
-                                                                    context,
-                                                                int index) {
-                                                          Story story =
-                                                              _storyList[index];
-                                                          return Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        10),
-                                                            child: Container(
-                                                              width: 65,
-                                                              child: Column(
-                                                                children: [
-                                                                  GestureDetector(
-                                                                    onTap: () {
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .push(
-                                                                        MaterialPageRoute(
-                                                                          builder: (context) =>
-                                                                              ViewStory(
-                                                                            user_id:
-                                                                                story.user.id,
-                                                                            image:
-                                                                                story.user.image,
-                                                                            name:
-                                                                                story.user.name,
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          65,
-                                                                      width: 65,
-                                                                      decoration: BoxDecoration(
-                                                                          borderRadius: BorderRadius.circular(
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 10, bottom: 0),
+                                          child: Container(
+                                              height: 90,
+                                              child: Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      pickImageC();
+                                                    },
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 7),
+                                                      child: Column(
+                                                        children: [
+                                                          GestureDetector(
+                                                            child: Stack(
+                                                              alignment: Alignment
+                                                                  .bottomRight,
+                                                              children: [
+                                                                Container(
+                                                                  height: 65,
+                                                                  width: 65,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
                                                                               100),
-                                                                          border: Border.all(
-                                                                              width: 2.5,
-                                                                              color: Colors.blue[400])),
-                                                                      child:
-                                                                          ClipOval(
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                          fit: BoxFit
-                                                                              .cover,
+                                                                      border: Border.all(
                                                                           width:
-                                                                              100,
-                                                                          height:
-                                                                              100,
-                                                                          imageUrl:
-                                                                              baseURLMobile + story.user.image,
-                                                                          placeholder: (context, url) =>
+                                                                              2.5,
+                                                                          color:
+                                                                              Colors.blue[400])),
+                                                                  child:
+                                                                      ClipOval(
+                                                                    child:
+                                                                        CachedNetworkImage(
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      width:
+                                                                          100,
+                                                                      height:
+                                                                          100,
+                                                                      imageUrl:
+                                                                          baseURLMobile +
+                                                                              user.image,
+                                                                      placeholder:
+                                                                          (context, url) =>
                                                                               Center(
-                                                                            child:
-                                                                                Container(
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                          ),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              Icon(
-                                                                            Icons.error,
-                                                                            color:
-                                                                                Colors.black.withOpacity(0.8),
-                                                                          ),
+                                                                        child:
+                                                                            Container(
+                                                                          color:
+                                                                              Colors.white,
                                                                         ),
+                                                                      ),
+                                                                      errorWidget: (context,
+                                                                              url,
+                                                                              error) =>
+                                                                          Icon(
+                                                                        Icons
+                                                                            .error,
+                                                                        color: Colors
+                                                                            .black
+                                                                            .withOpacity(0.8),
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  SizedBox(
-                                                                    height: 10,
+                                                                ),
+                                                                ClipOval(
+                                                                  child:
+                                                                      Container(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    child: Icon(
+                                                                      FluentIcons
+                                                                          .add_circle_20_filled,
+                                                                      color: Colors
+                                                                              .blue[
+                                                                          400],
+                                                                    ),
                                                                   ),
-                                                                  Text(
-                                                                    story.user
-                                                                        .name,
-                                                                    // "asdasdasdasdasdasdasdsa",
-                                                                    overflow:
-                                                                        TextOverflow
-                                                                            .ellipsis,
-                                                                    style:
-                                                                        TextStyle(
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            "New Story",
+                                                            style: TextStyle(
+                                                                fontSize: 0),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  ListView.builder(
+                                                      // primary: false,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount:
+                                                          _storyList.length,
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
+                                                        Story story =
+                                                            _storyList[index];
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      7),
+                                                          child: Container(
+                                                            width: 65,
+                                                            child: Column(
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                ViewStory(
+                                                                          user_id: story
+                                                                              .user
+                                                                              .id,
+                                                                          image: story
+                                                                              .user
+                                                                              .image,
+                                                                          name: story
+                                                                              .user
+                                                                              .name,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                    viewedStory(
+                                                                        story
+                                                                            .id);
+                                                                    setState(
+                                                                        () {
+                                                                      story.selfViewed =
+                                                                          true;
+                                                                    });
+                                                                  },
+                                                                  child: story.selfViewed ==
+                                                                          true
+                                                                      ? Container(
+                                                                          height:
+                                                                              65,
+                                                                          width:
+                                                                              65,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(100),
+                                                                          ),
+                                                                          child:
+                                                                              ClipOval(
+                                                                            child:
+                                                                                CachedNetworkImage(
+                                                                              fit: BoxFit.cover,
+                                                                              width: 100,
+                                                                              height: 100,
+                                                                              imageUrl: baseURLMobile + story.user.image,
+                                                                              placeholder: (context, url) => Center(
+                                                                                child: Container(
+                                                                                  color: Colors.white,
+                                                                                ),
+                                                                              ),
+                                                                              errorWidget: (context, url, error) => Icon(
+                                                                                Icons.error,
+                                                                                color: Colors.black.withOpacity(0.8),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                      : Container(
+                                                                          height:
+                                                                              65,
+                                                                          width:
+                                                                              65,
+                                                                          decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(100),
+                                                                              border: Border.all(width: 2.5, color: Colors.blue[400])),
+                                                                          child:
+                                                                              ClipOval(
+                                                                            child:
+                                                                                CachedNetworkImage(
+                                                                              fit: BoxFit.cover,
+                                                                              width: 100,
+                                                                              height: 100,
+                                                                              imageUrl: baseURLMobile + story.user.image,
+                                                                              placeholder: (context, url) => Center(
+                                                                                child: Container(
+                                                                                  color: Colors.white,
+                                                                                ),
+                                                                              ),
+                                                                              errorWidget: (context, url, error) => Icon(
+                                                                                Icons.error,
+                                                                                color: Colors.black.withOpacity(0.8),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                Text(
+                                                                  story.user
+                                                                      .name,
+                                                                  // "asdasdasdasdasdasdasdsa",
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black87,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
+                                                                      fontSize:
+                                                                          0),
+                                                                )
+                                                              ],
                                                             ),
-                                                          );
-                                                        })),
-                                              ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                ],
+                                              )),
+                                        ),
                                         ListView.builder(
                                             primary: false,
                                             shrinkWrap: true,
@@ -519,9 +664,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                       (context,
                                                                               url) =>
                                                                           Center(
-                                                                    // child: Image
-                                                                    //     .asset(
-                                                                    //         'assets/images/user0.png'),
                                                                     child:
                                                                         Container(
                                                                       color: Colors
@@ -569,10 +711,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             _handlePostLike(
                                                                 post.id);
                                                           },
-                                                          // onTap: () {
-                                                          //   _handlePostLikeDislike(
-                                                          //       post.id);
-                                                          // },
                                                           child: Padding(
                                                               padding:
                                                                   const EdgeInsets
@@ -778,193 +916,224 @@ class _HomeScreenState extends State<HomeScreen> {
                                     )
                                   : Column(
                                       children: [
-                                        _storyList.length == null
-                                            ? Center()
-                                            : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10,
-                                                    top: 10,
-                                                    bottom: 10),
-                                                child: Container(
-                                                    height: 100,
-                                                    child: Row(
-                                                      children: [
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            pickImageC();
-                                                          },
-                                                          child: Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        7),
-                                                            child: Column(
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 10, bottom: 0),
+                                          child: Container(
+                                              height: 90,
+                                              child: Row(
+                                                children: [
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      pickImageC();
+                                                    },
+                                                    child: Padding(
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 7),
+                                                      child: Column(
+                                                        children: [
+                                                          GestureDetector(
+                                                            child: Stack(
+                                                              alignment: Alignment
+                                                                  .bottomRight,
                                                               children: [
-                                                                GestureDetector(
-                                                                  child: Stack(
-                                                                    alignment:
-                                                                        Alignment
-                                                                            .bottomRight,
-                                                                    children: [
-                                                                      Container(
-                                                                        height:
-                                                                            65,
-                                                                        width:
-                                                                            65,
-                                                                        decoration: BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(100),
-                                                                            border: Border.all(width: 2.5, color: Colors.blue[400])),
-                                                                        child:
-                                                                            ClipOval(
-                                                                          child:
-                                                                              CachedNetworkImage(
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                            width:
-                                                                                100,
-                                                                            height:
-                                                                                100,
-                                                                            imageUrl:
-                                                                                baseURLMobile + user.image,
-                                                                            placeholder: (context, url) =>
-                                                                                Center(
-                                                                              child: Container(
-                                                                                color: Colors.white,
-                                                                              ),
-                                                                            ),
-                                                                            errorWidget: (context, url, error) =>
-                                                                                Icon(
-                                                                              Icons.error,
-                                                                              color: Colors.black.withOpacity(0.8),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
+                                                                Container(
+                                                                  height: 65,
+                                                                  width: 65,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              100),
+                                                                      border: Border.all(
+                                                                          width:
+                                                                              2.5,
+                                                                          color:
+                                                                              Colors.blue[400])),
+                                                                  child:
                                                                       ClipOval(
+                                                                    child:
+                                                                        CachedNetworkImage(
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                      width:
+                                                                          100,
+                                                                      height:
+                                                                          100,
+                                                                      imageUrl:
+                                                                          baseURLMobile +
+                                                                              user.image,
+                                                                      placeholder:
+                                                                          (context, url) =>
+                                                                              Center(
                                                                         child:
                                                                             Container(
                                                                           color:
                                                                               Colors.white,
-                                                                          child:
-                                                                              Icon(
-                                                                            FluentIcons.add_circle_20_filled,
+                                                                        ),
+                                                                      ),
+                                                                      errorWidget: (context,
+                                                                              url,
+                                                                              error) =>
+                                                                          Icon(
+                                                                        Icons
+                                                                            .error,
+                                                                        color: Colors
+                                                                            .black
+                                                                            .withOpacity(0.8),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                ClipOval(
+                                                                  child:
+                                                                      Container(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    child: Icon(
+                                                                      FluentIcons
+                                                                          .add_circle_20_filled,
+                                                                      color: Colors
+                                                                              .blue[
+                                                                          400],
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          Text(
+                                                            "New Story",
+                                                            style: TextStyle(
+                                                                fontSize: 0),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  ListView.builder(
+                                                      // primary: false,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount:
+                                                          _storyList.length,
+                                                      itemBuilder:
+                                                          (BuildContext context,
+                                                              int index) {
+                                                        Story story =
+                                                            _storyList[index];
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      7),
+                                                          child: Container(
+                                                            width: 65,
+                                                            child: Column(
+                                                              children: [
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .push(
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                ViewStory(
+                                                                          user_id: story
+                                                                              .user
+                                                                              .id,
+                                                                          image: story
+                                                                              .user
+                                                                              .image,
+                                                                          name: story
+                                                                              .user
+                                                                              .name,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    height: 65,
+                                                                    width: 65,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                100),
+                                                                        border: Border.all(
+                                                                            width:
+                                                                                2.5,
                                                                             color:
-                                                                                Colors.blue[400],
+                                                                                Colors.blue[400])),
+                                                                    child:
+                                                                        ClipOval(
+                                                                      child:
+                                                                          CachedNetworkImage(
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                        width:
+                                                                            100,
+                                                                        height:
+                                                                            100,
+                                                                        imageUrl:
+                                                                            baseURLMobile +
+                                                                                story.user.image,
+                                                                        placeholder:
+                                                                            (context, url) =>
+                                                                                Center(
+                                                                          child:
+                                                                              Container(
+                                                                            color:
+                                                                                Colors.white,
                                                                           ),
                                                                         ),
-                                                                      )
-                                                                    ],
+                                                                        errorWidget: (context,
+                                                                                url,
+                                                                                error) =>
+                                                                            Icon(
+                                                                          Icons
+                                                                              .error,
+                                                                          color: Colors
+                                                                              .black
+                                                                              .withOpacity(0.8),
+                                                                        ),
+                                                                      ),
+                                                                    ),
                                                                   ),
                                                                 ),
                                                                 SizedBox(
                                                                   height: 10,
                                                                 ),
                                                                 Text(
-                                                                  "New Story",
+                                                                  story.user
+                                                                      .name,
+                                                                  // "asdasdasdasdasdasdasdsa",
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                   style: TextStyle(
+                                                                      color: Colors
+                                                                          .black87,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
                                                                       fontSize:
                                                                           0),
                                                                 )
                                                               ],
                                                             ),
                                                           ),
-                                                        ),
-                                                        ListView.builder(
-                                                            // primary: false,
-                                                            shrinkWrap: true,
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            itemCount:
-                                                                _storyList
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (BuildContext
-                                                                        context,
-                                                                    int index) {
-                                                              Story story =
-                                                                  _storyList[
-                                                                      index];
-                                                              return Padding(
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        7),
-                                                                child:
-                                                                    Container(
-                                                                  width: 65,
-                                                                  child: Column(
-                                                                    children: [
-                                                                      GestureDetector(
-                                                                        onTap:
-                                                                            () {
-                                                                          Navigator.of(context)
-                                                                              .push(
-                                                                            MaterialPageRoute(
-                                                                              builder: (context) => ViewStory(
-                                                                                user_id: story.user.id,
-                                                                                image: story.user.image,
-                                                                                name: story.user.name,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                        child:
-                                                                            Container(
-                                                                          height:
-                                                                              65,
-                                                                          width:
-                                                                              65,
-                                                                          decoration: BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                              border: Border.all(width: 2.5, color: Colors.blue[400])),
-                                                                          child:
-                                                                              ClipOval(
-                                                                            child:
-                                                                                CachedNetworkImage(
-                                                                              fit: BoxFit.cover,
-                                                                              width: 100,
-                                                                              height: 100,
-                                                                              imageUrl: baseURLMobile + story.user.image,
-                                                                              placeholder: (context, url) => Center(
-                                                                                child: Container(
-                                                                                  color: Colors.white,
-                                                                                ),
-                                                                              ),
-                                                                              errorWidget: (context, url, error) => Icon(
-                                                                                Icons.error,
-                                                                                color: Colors.black.withOpacity(0.8),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      SizedBox(
-                                                                        height:
-                                                                            10,
-                                                                      ),
-                                                                      Text(
-                                                                        story
-                                                                            .user
-                                                                            .name,
-                                                                        // "asdasdasdasdasdasdasdsa",
-                                                                        overflow:
-                                                                            TextOverflow.ellipsis,
-                                                                        style: TextStyle(
-                                                                            color:
-                                                                                Colors.black45,
-                                                                            fontWeight: FontWeight.bold,
-                                                                            fontSize: 12),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            }),
-                                                      ],
-                                                    )),
-                                              ),
+                                                        );
+                                                      }),
+                                                ],
+                                              )),
+                                        ),
                                         ListView.builder(
                                             primary: false,
                                             shrinkWrap: true,

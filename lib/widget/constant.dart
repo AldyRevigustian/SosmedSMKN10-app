@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:numeral/fun.dart';
 
-const baseURL = 'http://192.168.0.11:8000/api';
-const baseURLMobile = 'http://192.168.0.11:8000';
+const baseURL = 'http://192.168.0.110:8000/api';
+const baseURLMobile = 'http://192.168.0.110:8000';
 
 const loginURL = baseURL + '/login';
 const registerURL = baseURL + '/register';
@@ -14,6 +14,7 @@ const userURL = baseURL + '/user';
 const userIdURL = baseURL + '/userId';
 const postsURL = baseURL + '/posts';
 const storiesURL = baseURL + '/stories';
+const storyURL = baseURL + '/story';
 const storiesImageURL = baseURL + '/storiesImage';
 const commentsURL = baseURL + '/comments';
 

@@ -328,6 +328,33 @@ Future<ApiResponse> likeUnlikePost(int postId) async {
   return apiResponse;
 }
 
+Future<ApiResponse> viewedStory(int storyId) async {
+  ApiResponse apiResponse = ApiResponse();
+  try {
+    String token = await getToken();
+    final response = await http.post(Uri.parse('$storyURL/$storyId/viewed'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token'
+        });
+
+    switch (response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body)['message'];
+        break;
+      case 401:
+        apiResponse.error = unauthorized;
+        break;
+      default:
+        apiResponse.error = somethingWentWrong;
+        break;
+    }
+  } catch (e) {
+    apiResponse.error = serverError;
+  }
+  return apiResponse;
+}
+
 Future<ApiResponse> likePost(int postId) async {
   ApiResponse apiResponse = ApiResponse();
   try {
